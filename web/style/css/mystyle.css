@@ -1,0 +1,65 @@
+/* map style */
+#map-container {
+    padding: 6px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc #ccc #999 #ccc;
+    -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+    -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+    box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
+     
+}
+#map {   
+    height: 600px;
+}
+
+/*  post style */
+.media img{ 
+    width:100px;
+    height: 100px;
+     
+}
+
+.media{
+    margin: 10px;
+    padding: 10px;
+}
+
+/* profile posts */
+#post-container{
+    min-height: 1000px;
+   
+    padding: 5px;
+    margin: 10px;
+}
+#post-container .media{
+    border-bottom: 1px solid black;
+    padding: 30px;
+    
+}
+#post-container .dropdown-menu{
+        margin: 3px -125px 0;
+    
+}
+#setting{ float: right}
+
+.selectpicker {
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    margin-top: 15px;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+/* setting page */
+
+#ProfileUpload{ display: none}
+.custom-file-upload {
+    margin: 0 auto; 
+    border: 1px solid #6B41B9;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: #fff;
+    background: #6B41B9;
+}
