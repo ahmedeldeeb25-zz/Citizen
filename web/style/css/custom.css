@@ -45,7 +45,7 @@
 
 /* =============== Global Section ==============*/
 body {
-	font-family: 'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     overflow: hidden;
 }
 
@@ -61,7 +61,7 @@ h2 {
 
 /* =============== Navabar Section ==============*/
 .navbar {
-	width: 100%;
+    width: 100%;
     background-color: #fafafa;
     padding: 6px 7px;
     position: relative;
@@ -74,11 +74,11 @@ h2 {
 }
 
 .navbar-brand>img {
-	margin-top: -10px;
+    margin-top: -10px;
 }
 
 .navbar-default .navbar-nav>li>a {
-	opacity: 0.9;
+    opacity: 0.9;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     border-radius: 30px;
@@ -93,34 +93,34 @@ h2 {
 }
 
 .navbar-default .navbar-nav>li>a:hover {
-	color: #4611a7;
+    color: #4611a7;
 }
 
 .add-list {
-	color: #fff;
+    color: #fff;
 
 }
 
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus, 
 .navbar-default .navbar-nav>.active>a:hover {
-	background: none;
-	color: #4611a7;
+    background: none;
+    color: #4611a7;
 }
 
 .add-list {
-	background: transparent;
-	border-radius: 30px;
-	padding: 0;
-	display: inline-block;
-	margin-top: 7px;
-	margin-left: 20px;
+    background: transparent;
+    border-radius: 30px;
+    padding: 0;
+    display: inline-block;
+    margin-top: 7px;
+    margin-left: 20px;
 }
 
 .add-list a {
-	padding: 5px 8px;
-	border-radius: 30px;
-	background-color: #4611a7;
+    padding: 5px 8px;
+    border-radius: 30px;
+    background-color: #4611a7;
     color: #fff;
     border-color: #4611a7;
     -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
@@ -139,32 +139,32 @@ h2 {
 }
 
 .add-list a i {
-	padding-right: 5px
+    padding-right: 5px
 }
 
 .add-list a:hover {
-	background: #fff;
-	color: #4611a7;
-	border: 2px solid #fff
+    background: #fff;
+    color: #4611a7;
+    border: 2px solid #fff
 }
 
 
 /* =============== Panner Section ==============*/
 
 .panner {
-	text-align: center;
-	width: 100%;
-	height: 600px;
-	background: url("../img/panner.jpg") no-repeat 0% 0%;
+    text-align: center;
+    width: 100%;
+    height: 600px;
+    background: url("../img/panner.jpg") no-repeat 0% 0%;
     background-size: cover;
 }
 
 .panner .panner-back {
-	
-	width: 100%;
-	height: 100%;
-	padding-top: 180px;
-	background: rgba(0, 0, 0, .7);
+
+    width: 100%;
+    height: 100%;
+    padding-top: 180px;
+    background: rgba(0, 0, 0, .7);
 }
 
 .panner .panner-back .page-title {
@@ -172,7 +172,7 @@ h2 {
 }
 
 .panner .panner-back .page-title h1 {
-	opacity: 1;
+    opacity: 1;
     color: #fff;
     font-weight: normal;
     font-size: 54px;
@@ -199,7 +199,7 @@ h2 {
 .panner .panner-back form .input-group {
     width: 100%;
     border-radius: 0
-    
+
 }
 .panner .panner-back form input {
     box-shadow: none;
@@ -258,7 +258,7 @@ h2 {
     font-weight: normal;
 }
 
- .item {
+.item {
     -moz-transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
@@ -353,8 +353,8 @@ h2 {
 .item:hover {
     transform: scale(1.05, 1.05);
 }
- 
- .item .additional-info {
+
+.item .additional-info {
     background-color: #fafafa;
     padding: 15px 20px;
     position: relative;
@@ -384,7 +384,7 @@ h2 {
 
 
 .item .additional-info ul {
-    
+
     -moz-transition: 0.3s ease;
     -webkit-transition: 0.3s ease;
     transition: 0.3s ease;
@@ -442,7 +442,7 @@ h2 {
     text-transform: uppercase;
     border-radius: 30px;
     transition: ease-in-out 0.3s all;
-    
+
     margin-top: 20px;
 }
 
@@ -522,7 +522,7 @@ h2 {
     padding-left: 52px;
     list-style: none;
     padding-right: 25px;
-    }
+}
 
 .listings .list-item ul li a {
     opacity: 0.6;
@@ -1040,7 +1040,7 @@ h2 {
     margin-top: 18px;
 }
 
-    
+
 
 /*****************************************************************************
 /*****************************************************************************
@@ -1323,12 +1323,12 @@ h2 {
     width: 100%;
     height: 100%;
     top: 0;
-    
+
 }
 
 .my-items .my-item .info {
-margin-left: 200px;
-padding: 20px 0;
+    margin-left: 200px;
+    padding: 20px 0;
 }
 
 .my-items .my-item .info a {
@@ -1469,9 +1469,13 @@ padding: 20px 0;
     margin-bottom: 20px;
 }
 
+.about-list-content{
+    margin: 35px auto;
+}
 .about-list .about-list-content p {
-opacity: 0.65;
-line-height: 18px;
+
+    font-size: 20px;
+    line-height: 18px;
 }
 
 .about-list .features ul li {
@@ -1522,7 +1526,9 @@ line-height: 18px;
 }
 
 .about-list .reviews .review .image img {
-    border-radius: 100%
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .about-list .reviews .review .discription {
@@ -1675,7 +1681,7 @@ line-height: 18px;
     font-weight: bold;
     float: left;
     line-height: 1.42
-    
+
 }
 
 .hours dl dd {
@@ -1837,7 +1843,7 @@ line-height: 18px;
 }
 
 .blog .item > a {
-   
+
 }
 
 

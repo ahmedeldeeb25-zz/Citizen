@@ -13,7 +13,7 @@
 <%@page import="entities.post"%>
 <%@page import="entities.comment"%>
 <%@page import="org.hibernate.Session"%>
-<%@page import="classes.test"%>
+<%@page import="model.test"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     SimpleDateFormat ft

@@ -1,4 +1,4 @@
-<%@page import="classes.user"%>
+<%@page import="model.user"%>
 <%@page import="entities.profile"%>
 <%
 

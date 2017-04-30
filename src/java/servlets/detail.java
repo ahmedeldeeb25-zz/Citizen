@@ -5,39 +5,67 @@
  */
 package servlets;
 
-import model.Posts;
-import model.user;
 import entities.post;
-import entities.profile;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Posts;
+import model.test;
+import org.hibernate.Session;
 
 /**
  *
  * @author Ahmed_Eldeeb
  */
-public class profiles extends HttpServlet {
+public class detail extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        int userId = Integer.parseInt(String.valueOf(session.getAttribute("userID")));
-        user u = new user();
-        profile user = u.getUser(userId);
 
-        List<post> userPost = (List<post>) user.getPosts();
+        if (request.getParameter("delete") != null) {
 
-        request.setAttribute("userPost", userPost);
-        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
-        rd.forward(request, response);
+            int id = Integer.parseInt(request.getParameter("delete"));
+            int userId = Integer.parseInt(String.valueOf(session.getAttribute("userID")));
+            Posts posts = new Posts();
+            post p = posts.getPost(id);
+
+            if (userId == p.getUser_id().getId()) {
+                posts.deletePost(p);
+            }
+            response.sendRedirect("profiles");
+
+        } else {
+            int post_id = Integer.parseInt(request.getParameter("post_id"));
+
+            post p;
+            test t = new test();
+
+            Session s = t.openConnection();
+            s.beginTransaction();
+            p = (post) s.get(post.class, post_id);
+            request.setAttribute("p", p);
+
+            request.getRequestDispatcher("detail.jsp").include(request, response);
+///////////////////////////
+            int hitsCount = p.getVisit();
+
+            if (hitsCount == 0) {
+                hitsCount = 1;
+            } else {
+                hitsCount += 1;
+            }
+            p.setVisit(hitsCount);
+            s.save(p);
+            s.getTransaction().commit();
+            s.close();
+            /////////////////////
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

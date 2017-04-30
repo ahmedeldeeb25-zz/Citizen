@@ -8,6 +8,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,7 +57,7 @@ public class post {
     @ManyToOne
     @JoinColumn(name="user_id")
     private profile user_id;
-    @OneToMany(mappedBy = "Post_id")
+    @OneToMany(mappedBy = "Post_id",cascade = CascadeType.REMOVE)
     private Collection<comment> comments=new ArrayList<comment>();
     
      

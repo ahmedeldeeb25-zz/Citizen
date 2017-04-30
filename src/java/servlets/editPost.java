@@ -5,39 +5,46 @@
  */
 package servlets;
 
-import model.Posts;
-import model.user;
-import entities.post;
-import entities.profile;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Ahmed_Eldeeb
  */
-public class profiles extends HttpServlet {
+public class editPost extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        int userId = Integer.parseInt(String.valueOf(session.getAttribute("userID")));
-        user u = new user();
-        profile user = u.getUser(userId);
-
-        List<post> userPost = (List<post>) user.getPosts();
-
-        request.setAttribute("userPost", userPost);
-        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
-        rd.forward(request, response);
+        PrintWriter out = response.getWriter();
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet editPost</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet editPost at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

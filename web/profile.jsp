@@ -2,6 +2,9 @@
 <%@page import="java.util.List"%>
 <%@page import="entities.post"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+
+
+
 <%@include file="include/header.jsp" %>
 <!-- PATH SECTION ================================================= -->
 <section class="path">
@@ -90,8 +93,9 @@
 
                                                  <div class="edit-options">
                                                      <a href="editlisting.html" class="link icon"><i class="fa fa-edit"></i>Edit</a>
-                                                     <a href="editlisting.html" class="link icon"><i class="fa fa-comment"></i>Reviews</a>
-                                                     <a href="#" class="delete link icon"><i class="fa fa-trash"></i>Delete</a>
+                                                     <c:url value="detail" var="base" />
+                                                     <a href="${base}?post_id=<%= p.getId() %>" class="link icon"><i class="fa fa-comment"></i>Reviews</a>
+                                                     <a href="${base}?delete=<%= p.getId() %>" class="delete link icon"><i class="fa fa-trash"></i>Delete</a>
 
                                                  </div>
                                              </td>

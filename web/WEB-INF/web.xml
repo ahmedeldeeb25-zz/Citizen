@@ -32,6 +32,14 @@
         <servlet-name>allListing</servlet-name>
         <servlet-class>servlets.allListing</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>detail</servlet-name>
+        <servlet-class>servlets.detail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editPost</servlet-name>
+        <servlet-class>servlets.editPost</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddPost</servlet-name>
         <url-pattern>/AddPost</url-pattern>
@@ -64,12 +72,31 @@
         <servlet-name>allListing</servlet-name>
         <url-pattern>/allListing</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>detail</servlet-name>
+        <url-pattern>/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editPost</servlet-name>
+        <url-pattern>/editPost</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index</welcome-file>
     </welcome-file-list>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+   
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+   
 </web-app>

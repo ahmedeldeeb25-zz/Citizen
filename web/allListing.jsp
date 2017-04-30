@@ -6,44 +6,17 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.post"%>
 <%@page import="org.hibernate.Session"%>
-<%@page import="classes.test"%>
+<%@page import="model.test"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
-<%@page import="classes.user"%>
+<%@page import="model.user"%>
 <%
-    List<Integer> list_id = null;
-    List<post> poste = null;
     test t = new test();
+    List<Integer> list_id = (List<Integer>) request.getAttribute("list_id");
+    List<post> poste = (List<post>) request.getAttribute("poste");
 
-    if (request.getParameter("keyword") != null) {
-        String keyword = request.getParameter("keyword");
-        user u = new user();
-
-        HashMap<Integer, HashSet<String>> posts = u.postSearch();
-list_id = new ArrayList<Integer>();
-        for (Map.Entry<Integer, HashSet<String>> e : posts.entrySet()) {
-            if (e.getValue().contains(keyword)) {
-                list_id.add(e.getKey());
-                //out.print(e.getKey());
-            }
-        }
-    } 
-    if (request.getParameter("cat") != null) {
-        int cat = Integer.parseInt(request.getParameter("cat"));
-        Session s = t.openConnection();
-        s.beginTransaction();
-        sub_category c = (sub_category) s.get(sub_category.class, cat);
-        poste = (List<post>) c.getPosts();
-
-    }
-    else{
-        Session s = t.openConnection();
-        s.beginTransaction();
-        Criteria c=s.createCriteria(post.class);
-        poste = (List<post>) c.list();
-    }
     SimpleDateFormat ft
             = new SimpleDateFormat(" yyyy.MM.dd 'at' hh:mm");
 %>
@@ -117,7 +90,7 @@ list_id = new ArrayList<Integer>();
 
                                 <td class="viwes">426</td>
                                 <td class="reviwes">43</td>
-                                 
+
 
                                 <td class="last-edited">
                                     <%=ft.format(p.getDate())%>  
@@ -125,13 +98,15 @@ list_id = new ArrayList<Integer>();
                             </tr>
                         </tbody>
                         <%
-                        }}  else if(poste != null) {
-                            for (post po : poste) {                       
+                            }
+                        } else if (poste.size() > 0) {
+                            for (post po : poste) {
                         %>
 
                         <tbody>
                             <tr class="my-item">
                                 <td>
+
                                     <div class="image-wrapper">
                                         <a class="image img-responsive" href="editlisting.html">
                                             <img src="style/img/item-4.jpg" alt="locations items">
@@ -139,20 +114,20 @@ list_id = new ArrayList<Integer>();
                                     </div>
 
                                     <div class="info">
-                                        <a href="detail.jsp?post_id=<%=po.getId()%>"><h3><%= po.getTitle() %></h3></a>
-                                        <figure class="location"><%= po.getCity().getName() %></figure>
+                                        <a href="detail.jsp?post_id=<%=po.getId()%>"><h3><%= po.getTitle()%></h3></a>
+                                        <figure class="location"><%= po.getCity().getName()%></figure>
                                         <figure class="label label-info">restaurant</figure>
                                     </div>
                                 </td>
 
                                 <td class="viwes">426</td>
                                 <td class="reviwes">43</td>
-                                
+
 
                                 <td class="last-edited">
                                     <%=ft.format(po.getDate())%>
 
-                                     
+
                                 </td>
                             </tr>
                         </tbody>
@@ -160,7 +135,9 @@ list_id = new ArrayList<Integer>();
 
 
                         <% }
-                            }%>
+                        } else {%>
+                        <h2>No available Posts Yet</h2>
+                        <% }%>
 
                     </table>
                 </div>

@@ -5,7 +5,7 @@
  */
 package servlets;
 
-import classes.Post_Controller;
+import model.Post_Controller;
 import entities.post;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

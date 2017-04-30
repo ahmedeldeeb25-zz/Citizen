@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package model;
 
 import entities.post;
 import entities.profile;
@@ -31,14 +31,10 @@ public class user {
     private HashMap<Integer, HashSet<String>> set;
     private Criteria c;
 
-    public user() {
-        this.sessionfactory = new Configuration().configure().buildSessionFactory();
-        this.session = sessionfactory.openSession();
-
-    }
-
     public Boolean register(profile u) {
 
+        sessionfactory = new Configuration().configure().buildSessionFactory();
+        session = sessionfactory.openSession();
         session.beginTransaction();
         session.save(u);
         session.getTransaction().commit();
@@ -49,8 +45,9 @@ public class user {
 
     public profile login(profile u) {
 
+        sessionfactory = new Configuration().configure().buildSessionFactory();
+        session = sessionfactory.openSession();
         session.beginTransaction();
-
         c = session.createCriteria(profile.class);
         c.add(Restrictions.eq("Email", u.getEmail()))
                 .add(Restrictions.eq("Password", u.getPassword()));
@@ -64,19 +61,29 @@ public class user {
         return user.get(0);
 
     }
-    
-    public profile getUser(int id){
-        
+
+    public profile getUser(int id) {
+        sessionfactory = new Configuration().configure().buildSessionFactory();
+        session = sessionfactory.openSession();
         session.beginTransaction();
 
-        profile user =(profile) session.get(profile.class, id);
+        profile user = (profile) session.get(profile.class, id);
         session.close();
-        
+
         return user;
-        
+
     }
-    
-     
+
+    public void updateProfile(profile u) {
+        
+        sessionfactory = new Configuration().configure().buildSessionFactory();
+        session = sessionfactory.openSession();
+        session.beginTransaction();
+        session.update(u);
+        session.getTransaction().commit();
+        session.close();
+
+    }
 
     /////////////////Post search/////////////////
     ////////////////////////////////////////////

@@ -5,7 +5,7 @@
  */
 package entities;
 
-import classes.user;
+import model.user;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;

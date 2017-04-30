@@ -1,10 +1,10 @@
 
 <%@page import="org.hibernate.criterion.Restrictions"%>
-<%@page import="classes.system_Helper"%>
+<%@page import="model.system_Helper"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entities.post"%>
 <%@page import="entities.sub_category"%>
-<%@page import="classes.test"%>
+<%@page import="model.test"%>
 <%@page import="org.hibernate.Criteria"%>
 <%@page import="java.util.List"%>
 <%@page import="entities.category"%>
@@ -29,7 +29,7 @@
     
     sub_category sub = (sub_category) s.get(sub_category.class, id);
     List<post> post_list = (List<post>) sub.getPosts();
-    if(post_list !=null){
+    if(post_list.size()>0 ){
     for (post p : post_list) {
 
 %>
@@ -42,10 +42,10 @@
             </a>
         </div>
         <div class="media-body">
-            <h4 class="media-heading"> <a href="detail.jsp?post_id=<%=p.getId()%>"> <%=p.getTitle()%> </a> 
+            <h4 class="media-heading"> <a href="detail?post_id=<%=p.getId()%>"> <%=p.getTitle()%> </a> 
                 <small><i>Posted on <%=ft.format(p.getDate())%></i></small> </h4>
             <%= p.getContent()%><br/>
-            By:<a href="profile.jsp?user_id=<%=p.getUser_id().getId()%>">  <i><%=helper.getUserName(s, p.getUser_id().getId())%> </i></a>
+            By:<a href="profiles?user_id=<%=p.getUser_id().getId()%>">  <i><%=helper.getUserName(s, p.getUser_id().getId())%> </i></a>
         </div>
 
     </div>
@@ -54,7 +54,7 @@
 
 
 <div class="col-md-12 text-center">
-    <a href="allListing.jsp?cat=<%=id%>" class="btn btn-primary btn-rounded">View all listings<i class="fa fa-long-arrow-right"></i></a>
+    <a href="allListing?cat=<%=id%>" class="btn btn-primary btn-rounded">View all listings<i class="fa fa-long-arrow-right"></i></a>
 </div>
 
 <%}else{%>

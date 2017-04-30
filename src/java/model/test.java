@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package model;
 
 import entities.category;
 import entities.post;
@@ -22,6 +22,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import static servlets.AddPost.readFully;
 
@@ -50,17 +51,12 @@ public class test {
 //        session.getTransaction().commit();
 //        session.close();
 ///////////////////////////////////////////////////
-        SessionFactory sessionfactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionfactory.openSession();
-        session.beginTransaction();
-        int userId = 1;
-        user u=new user();
-        profile user = u.getUser(userId);
+        user u = new user();
+            profile user = u.getUser(1);
+            user.setFirst_name("malek");
+           
+            u.updateProfile(user);
         
-        List<post> userPost = (List<post>) user.getPosts();
-        System.out.println(userPost.size());
-        session.close();
 
-        
     }
 }

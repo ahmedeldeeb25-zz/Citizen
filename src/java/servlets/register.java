@@ -5,7 +5,7 @@
  */
 package servlets;
 
-import classes.user;
+import model.user;
 import entities.profile;
 import java.io.IOException;
 import java.io.PrintWriter;

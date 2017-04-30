@@ -1,31 +1,24 @@
-<%@page import="org.hibernate.criterion.Order"%>
-<%@page import="classes.system_Helper"%>
+
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="org.hibernate.criterion.Order"%>
+<%@page import="model.system_Helper"%>
+ 
 <%@page import="entities.post"%>
 <%@page import="entities.sub_category"%>
 <%@page import="java.util.List"%>
 <%@page import="org.hibernate.Criteria"%>
 <%@page import="entities.category"%>
 <%@page import="org.hibernate.Session"%>
-<%@page import="classes.test"%>
+<%@page import="model.test"%>
 <%
-    test t = new test();
-    system_Helper helper = new system_Helper();
-
-    Session s = t.openConnection();
-    s.beginTransaction();
-
-    Criteria criteria = s.createCriteria(category.class);
-
-    List<category> c = (List<category>) criteria.list();
+    List<category> c = (List<category>) request.getAttribute("categories");
+    List<post> post_list = (List<post>) request.getAttribute("fistCat");
+    List<post> postList  = (List<post>) request.getAttribute("three");
 
     SimpleDateFormat ft
             = new SimpleDateFormat(" yyyy.MM.dd 'at' hh:mm");
-
-//    s.getTransaction().commit();
-//    s.close();
-
 %>
+
 <jsp:include page="include/header.jsp" />
 
 <script>
@@ -38,10 +31,8 @@
                 cache: false,
                 data: {cat: this.value},
                 success: function (data) {
-
-
-                    $('.recent-places .row').html(data);
-
+                   $('.recent-places .row').html(data);
+                   //console.log(data);
 
                 },
                 error: function () {
@@ -108,9 +99,9 @@
     <div class="container">
         <div class="row">
 
-            <%   
-                if(c.size() > 0){
-                for (category cat : c) {
+            <%
+                if (c.size() > 0) {
+                    for (category cat : c) {
             %>
 
             <div class=" col-sm-6">
@@ -137,7 +128,8 @@
                     </ul>
                 </div>
             </div>
-            <% }}else{%>
+            <% }
+            } else {%>
             <h2>No categories Found yet</h2>
             <%}%>
 
@@ -156,21 +148,9 @@
 
 
             <%
-                Criteria criteria2 = s.createCriteria(sub_category.class);
-
-                criteria2.setMaxResults(1);
-
-                List<sub_category> s_list = criteria2.list();
-                List<post> post_list = null;
-                int sub_id = 0;
-                 
-                for (sub_category sc : s_list) {
-                    post_list = (List<post>) sc.getPosts();
-                    sub_id = sc.getId();
-                }
-
-                if(post_list.size() > 0){
-                for (post p : post_list) {
+                int sub_id = post_list.get(0).getCategory().getId();
+                if (post_list.size() > 0) {
+                    for (post p : post_list) {
 
             %>
 
@@ -185,19 +165,23 @@
                         <h4 class="media-heading"> <a href="detail.jsp?post_id=<%=p.getId()%>"> <%=p.getTitle()%> </a> 
                             <small><i>Posted on <%=ft.format(p.getDate())%></i></small> </h4>
                         <%= p.getContent()%><br/>
-                        By:<a href="profile.jsp?user_id=<%=p.getUser_id().getId()%>">  <i><%=helper.getUserName(s, p.getUser_id().getId())%> </i></a>
+                        By:<a href="profile.jsp?user_id=<%=p.getUser_id().getId()%>"> 
+                            <i><%= p.getUser_id().getFirst_name() + " " + p.getUser_id().getLast_name()%> </i></a>
                     </div>
 
                 </div>
             </div>
-            <% }}else{%>
+            <% } %>
+             <div class="col-md-12 text-center">
+                <a href="allListing.jsp?cat=<%=sub_id%>" class="btn btn-primary btn-rounded">View all listings<i class="fa fa-long-arrow-right"></i></a>
+            </div>
+
+          <%  } else {%>
             <h2>No Posts yet</h2>
             <%}%>
 
 
-            <div class="col-md-12 text-center">
-                <a href="allListing.jsp?cat=<%=sub_id%>" class="btn btn-primary btn-rounded">View all listings<i class="fa fa-long-arrow-right"></i></a>
-            </div>
+           
 
             <div class="col-md-12">
                 <hr />
@@ -243,15 +227,8 @@
             <div class="col-md-12 col-sm-12">
 
                 <%
-                    Criteria post_criteria = s.createCriteria(post.class).
-                            addOrder(Order.desc("date")).setMaxResults(3);
-
-                    List<post> postList = (List<post>) post_criteria.list();
-
-                     if(postList.size() > 0){
-                    for (post p : postList) {
-
-
+                    if (postList.size() > 0) {
+                        for (post p : postList) {
                 %>
                 <div class=" col-sm-12">
                     <div class="media">
@@ -262,20 +239,17 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading"> <a href="#"> <%= p.getTitle()%> </a> <small><i>Posted on <%=p.getDate()%></i></small> </h4>
-                            <%=p.getContent()%><br/>
-                            By:<a href="#">  <i><%=helper.getUserName(s, p.getUser_id().getId())%> </i></a>
+                            <%= p.getContent()%><br/>
+                            By:<a href="#">   <i><%= p.getUser_id().getFirst_name() + " " + p.getUser_id().getLast_name()%> </i></a>
                         </div>
 
                     </div>
                 </div>
 
-                <%}}else{%>
+                <%}
+                } else {%>
                 <h2>No Posts</h2>
                 <%}%>
-
-
-
-
             </div>
 
         </div>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package model;
 
 import entities.post;
 import java.util.HashMap;
@@ -21,16 +21,30 @@ import org.hibernate.criterion.Restrictions;
  * @author Ahmed_Eldeeb
  */
 public class Posts {
-    
+
     private SessionFactory sessionfactory;
     private Session session;
     private Criteria c;
 
-    public Posts() {
-        this.sessionfactory = new Configuration().configure().buildSessionFactory();
-        this.session = sessionfactory.openSession();
+    public post getPost(int id) {
+        sessionfactory = new Configuration().configure().buildSessionFactory();
+        session = sessionfactory.openSession();
+        session.beginTransaction();
+
+        post user = (post) session.get(post.class, id);
+        session.close();
+
+        return user;
+
     }
-    
-    
-    
+
+    public void deletePost(post p) {
+        sessionfactory = new Configuration().configure().buildSessionFactory();
+        session = sessionfactory.openSession();
+        session.beginTransaction();
+        session.delete(p);
+        session.getTransaction().commit();
+        session.close();
+    }
+
 }

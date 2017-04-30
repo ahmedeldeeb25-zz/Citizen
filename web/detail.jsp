@@ -1,18 +1,21 @@
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="entities.comment"%>
 <%@page import="entities.comment"%>
 <%@page import="org.hibernate.Session"%>
-<%@page import="classes.test"%>
+<%@page import="model.test"%>
 <%@page import="entities.post"%>
 <%
-    int post_id = Integer.parseInt(request.getParameter("post_id"));
+    /*int post_id = Integer.parseInt(request.getParameter("post_id"));
 
     post p;
     test t = new test();
 
     Session s = t.openConnection();
     p = (post) s.get(post.class, post_id);
-
+     */
+    post p = (post) request.getAttribute("p");
 
 %>
 <%@include file="include/header.jsp" %>
@@ -29,7 +32,7 @@
                     cache: false,
                     data: {post_id: p_id, comment: content},
                     success: function (data) {
-                       $('.review').html(data);
+                        $('.reviews').html(data);
                         console.log(data);
                         $('.comment-content').val("");
                     },
@@ -42,7 +45,7 @@
     });
 </script>
 <!-- PATH SECTION ================================================= -->
-<input type="hidden" value="<%=post_id%>" id="post_id" />
+<input type="hidden" value="<%= p.getId()%>" id="post_id" />
 <section class="path">
     <div class="container">
 
@@ -90,10 +93,24 @@
                     <h2>reviews</h2>
                     <%
                         List<comment> list = (List<comment>) p.getComments();
-
                         if (list.size() > 0) {
+                            for(comment com:list){
                     %>
-                    <%} else {%>
+                    <div class="review">
+                        <div class="image">
+                            <img src="style/img/panner.jpg" class="img-responsive center-block" alt="locations person">
+                        </div>
+
+                        <div class="discription">
+                            <figure>
+                                <span class="date">03.02.2017</span>
+                                <p>
+                                    <%= com.getContent()%>
+                                </p>
+                            </figure>
+                        </div>
+                    </div>
+                    <%}} else {%>
                     <h3>No Reviews Yet.</h3>
                     <%}%>
 
@@ -125,7 +142,13 @@
                             </div>
 
                             <div class="form-group">
+                                <%
+                                    if (session.getAttribute("userID") == null) {
+                                %>
+                                <a type="submit" href="<c:url value="signin" />" class="btn btn-primary btn-rounded">send review</a>
+                                <%} else { %>
                                 <a type="submit" class="btn btn-primary btn-rounded send-review">send review</a>
+                                <%}%>
                             </div>
 
                         </div>
@@ -174,4 +197,3 @@
 
 <%@include file="include/footer.jsp" %>
 
-<% s.close();%>

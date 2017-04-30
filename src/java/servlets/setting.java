@@ -12,8 +12,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import classes.user;
+import model.user;
 import entities.profile;
+import java.io.PrintWriter;
+import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,9 +28,33 @@ public class setting extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        int id = Integer.parseInt(request.getParameter("userId"));
-        user u = new user();
-        profile user = u.getUser(id);
+        HttpSession session = request.getSession();
+        int id = Integer.parseInt(String.valueOf(session.getAttribute("userID")));
+         user u = new user();
+      
+    //   if (request.getParameter("login") != null) {
+            profile user = u.getUser(id);
+            user.setFirst_name(request.getParameter("fname"));            
+            u.updateProfile(user);
+      //  }
+
+//        PrintWriter out = response.getWriter();
+//        try {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet NewServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet NewServlet at " + request.getParameter("fname") + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        } finally {
+//            out.close();
+//        }
+       
+         user = u.getUser(id);
         request.setAttribute("user", user);
         RequestDispatcher rd = request.getRequestDispatcher("setting.jsp");
         rd.include(request, response);
