@@ -1,5 +1,53 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="entities.govern"%>
+<%@page import="model.Cities"%>
+<%@page import="java.util.List"%>
+<%@page import="entities.category"%>
+<%@page import="model.Categories"%>
+<%
+    Categories cats = new Categories();
+    List<category> cat = cats.getCategories();
+
+    Cities cities = new Cities();
+    List<govern> govs = cities.getGovs();
+%>
 <%@include file="include/header.jsp" %>
+
+<script>
+    $(document).ready(function () {
+        $("#mainCat").on("change", function (e) {
+            $.ajax({
+                url: "ajax/subCategories.jsp",
+                data: {cat: this.value},
+                cache: true,
+                type: 'GET',
+                success: function (data) {
+                    // console.log(data)
+                    $("#subCat").html(data);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#gov").on("change", function (e) {
+            $.ajax({
+                url: "ajax/cities.jsp",
+                data: {govern: this.value},
+                cache: true,
+                type: 'GET',
+                success: function (data) {
+                    //console.log(data)
+                    $("#city").html(data);
+                }
+            });
+        });
+    });
+</script>
 
 <!-- PATH SECTION ================================================= -->
 <section class="path">
@@ -25,7 +73,7 @@
 
                     <div class="col-sm-push-2 col-md-8 col-sm-6">
                         <h1 class="text-center">submit Post</h1>
-                        
+
                         <!---->
                         <form action="AddPost" method="post" enctype="multipart/form-data">
                             <div class="col-md-12">
@@ -41,30 +89,42 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Category</label>
-                                    <select name="cat" class="selectpicker">
-                                        <option>Restaurant</option>
-                                        <option>Adrenaline</option>
-                                        <option>Sport</option>
-                                        <option>Wellness</option>
+                                    <select id="mainCat"  class="selectpicker">
+                                        <option></option>
+                                        <%
+                                            for (category c : cat) {
+                                        %>
+                                        <option value="<%= c.getId()%>" ><%= c.getName()%></option>
+                                        <% }%>
                                     </select>
 
                                 </div>
                             </div>
                             <div class="clearfix"></div>
 
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Sub Category</label>
+                                    <select id="subCat" name="cat" class="selectpicker">
+
+                                    </select>
+
+                                </div>
+                            </div>
+
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Discribtion</label>
+                                    <label>Description</label>
                                     <textarea name="desc" class="form-control" rows="4" placeholder="Describe the listing"></textarea>
                                 </div>
                             </div>
 
-<!--                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Tags</label>
-                                    <input type="text" name="tags" class="form-control" placeholder="+ Add tag">
-                                </div>
-                            </div>-->
+                            <!--                            <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label>Tags</label>
+                                                                <input type="text" name="tags" class="form-control" placeholder="+ Add tag">
+                                                            </div>
+                                                        </div>-->
 
                             <div class="col-md-12">
                                 <h3 class="second-h3">contact</h3>
@@ -83,18 +143,23 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Listing Region</label>
-                                    <select class="selectpicker" name="region">
-                                        <option>Alexandria</option>
-                                        <option>Cairo</option>
-                                        <option>Menofia</option>
-                                        <option>Mansora</option>
+                                    <label>Governorate</label>
+                                    <select class="selectpicker" id="gov" name="region">
+                                        <option></option>
+                                        <%
+                                            for (govern g : govs) {
+                                        %>
+                                        <option value="<%= g.getId()%>"><%= g.getName()%></option>
+                                        <% }%>
+
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>City</label>
-                                    <input type="text" class="form-control" name="city" placeholder="City">
+                                    <select class="selectpicker" id="city" name="city">
+
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
@@ -121,7 +186,7 @@
                             <div class="col-md-12">
                                 <div class="file-upload">
                                     <input type="file" name="img"  class="file-upload-input with-preview MultiFile-applied"  title="Click to add files" maxlength="20" accept="image/*" id="MultiFile1" >
-                                    
+
                                     <span>click to upload image here</span>
                                 </div>
                             </div>
@@ -132,41 +197,41 @@
                                     <input type="text" name="url" class="form-control" placeholder="http://">
                                 </div>
                             </div>
-<!--
-                            <div class="col-md-12">
-                                <h3>social</h3>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>facebook url </label>
-                                    <input type="text" name="face" class="form-control" placeholder="http://">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>twitter url </label>
-                                    <input type="text" name="twitter" class="form-control" placeholder="http://">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>youtube url </label>
-                                    <input type="text" name="youtube" class="form-control" placeholder="http://">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>pinterest url </label>
-                                    <input type="text" name="printerest" class="form-control" placeholder="http://">
-                                </div>
-                            </div>
-
-
--->
+                            <!--
+                                                        <div class="col-md-12">
+                                                            <h3>social</h3>
+                                                        </div>
+                            
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>facebook url </label>
+                                                                <input type="text" name="face" class="form-control" placeholder="http://">
+                                                            </div>
+                                                        </div>
+                            
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>twitter url </label>
+                                                                <input type="text" name="twitter" class="form-control" placeholder="http://">
+                                                            </div>
+                                                        </div>
+                            
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>youtube url </label>
+                                                                <input type="text" name="youtube" class="form-control" placeholder="http://">
+                                                            </div>
+                                                        </div>
+                            
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>pinterest url </label>
+                                                                <input type="text" name="printerest" class="form-control" placeholder="http://">
+                                                            </div>
+                                                        </div>
+                            
+                            
+                            -->
 
 
                             <!--    <div class="col-md-12">
@@ -230,11 +295,16 @@
                                 </div> -->
 
                             <div class="col-md-12">
+                                <% if(session.getAttribute("userID") !=null){ %>
                                 <button type="submit" name="Addpost" style="margin-top:50px" class="btn btn-default btn-lg">preview & submit listing</button>
+                                <% }else{ %>
+                                <a  href="<c:url  value="signin"></c:url>" name="Addpost" style="margin-top:50px" class="btn btn-default btn-lg">preview & submit listing</a>
+                                <% } %>
+                               
                             </div>
                         </form>
 
-                        <hr />
+
 
                     </div>
                 </div>

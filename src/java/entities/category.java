@@ -8,10 +8,13 @@ package entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 /**
@@ -26,6 +29,7 @@ public class category {
     private String name;
     
     @OneToMany(mappedBy = "cat_id")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<sub_category> sub=new ArrayList<sub_category>();
 
     public int getId() {

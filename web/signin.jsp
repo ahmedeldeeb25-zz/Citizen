@@ -1,9 +1,6 @@
 <%@page import="model.user"%>
 <%@page import="entities.profile"%>
-<%
-
-
-%>
+ 
 <%@include file="include/header.jsp" %>
 
 <!-- PATH SECTION ================================================= -->
@@ -35,10 +32,11 @@
                         <div class="alert alert-danger"><%=request.getAttribute("error") %></div>
                         <%}%>
                         <h1>sign in</h1>
-                        <form method="post" action="signin">
+                        <form method="post" action="signin" onblur="return signinValidation()">
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" name="Email" class="form-control" id="exampleInputEmail1" placeholder="Your Email">
+                                <p class="alert alert-danger hidden emailValid"></p>
                             </div>
 
                             <div class="form-group">

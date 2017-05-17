@@ -41,8 +41,8 @@ public class profile {
     private String answer;
     //@Column(name = "name", insertable = true, updatable = true, nullable = false, length = 255)
     @Lob
-    @Column(columnDefinition = "mediumblob")
-    private Blob Picture;
+    @Column(columnDefinition = "LONGBLOB default NULL")
+    private byte[] Picture;
 
     ///Realtions
     @OneToMany(mappedBy = "user_id",fetch = FetchType.EAGER)
@@ -178,11 +178,11 @@ public class profile {
         this.Social = Social;
     }
 
-    public Blob getPicture() {
+    public byte[] getPicture() {
         return Picture;
     }
 
-    public void setPicture(Blob Picture) {
+    public void setPicture(byte[] Picture) {
         this.Picture = Picture;
     }
 

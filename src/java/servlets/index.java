@@ -9,14 +9,12 @@ import entities.category;
 import entities.post;
 import entities.sub_category;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.system_Helper;
 import model.test;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -74,7 +72,36 @@ public class index extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       
+        test t = new test();
+        Session s = t.openConnection();
+        s.beginTransaction();
+
+        //Get main categories List
+        Criteria criteria = s.createCriteria(category.class);
+        List<category> c = (List<category>) criteria.list();
+
+        //Get first sub-category Posts
+       Criteria post_c= s.createCriteria(post.class).
+                addOrder(Order.desc("date")).setMaxResults(1);
+        List<post> posts = (List<post>) post_c.list();
+
+        //get First Three posts order B date
+        Criteria post_criteria = s.createCriteria(post.class).
+                addOrder(Order.desc("date")).setMaxResults(1);
+
+        List<post> postList = (List<post>) post_criteria.list();
+
+        //Requests
+        request.setAttribute("categories", c);
+        request.setAttribute("fistCat", posts);
+        request.setAttribute("three", postList);
+        
+        
+
+        //Disoatcher
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        rd.include(request, response);
     }
 
     @Override

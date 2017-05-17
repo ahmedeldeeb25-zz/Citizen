@@ -2,7 +2,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="org.hibernate.criterion.Order"%>
 <%@page import="model.system_Helper"%>
- 
+
 <%@page import="entities.post"%>
 <%@page import="entities.sub_category"%>
 <%@page import="java.util.List"%>
@@ -13,7 +13,7 @@
 <%
     List<category> c = (List<category>) request.getAttribute("categories");
     List<post> post_list = (List<post>) request.getAttribute("fistCat");
-    List<post> postList  = (List<post>) request.getAttribute("three");
+    List<post> postList = (List<post>) request.getAttribute("three");
 
     SimpleDateFormat ft
             = new SimpleDateFormat(" yyyy.MM.dd 'at' hh:mm");
@@ -31,8 +31,8 @@
                 cache: false,
                 data: {cat: this.value},
                 success: function (data) {
-                   $('.recent-places .row').html(data);
-                   //console.log(data);
+                    $('.recent-places .row').html(data);
+                    //console.log(data);
 
                 },
                 error: function () {
@@ -57,7 +57,7 @@
                         <h2>with locations you can find the best deals in your location</h2>
                     </div>
 
-                    <form method="get" action="allListing.jsp">
+                    <form method="get" action="allListing">
 
                         <div class="input-group">
                             <input type="text" name="keyword" class="form-control" placeholder="What are you looking for">
@@ -119,8 +119,8 @@
                             for (sub_category sub_cat : list) {
                         %>
                         <li value="<%=sub_cat.getId()%>" id="catFilter">
-                            <a><%=sub_cat.getName()%></a>
-                            <figure class="count">6</figure>
+                            <a ><%=sub_cat.getName()%></a>
+                            <figure class="count"><%= sub_cat.getPosts().size()%></figure>
                         </li>
                         <% }%>
 
@@ -158,30 +158,36 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object" src="style/img/item-1.jpg" >
+
+                            <% if(p.getPic() !=null){ %>
+                            <img class="media-object" src="imageView.jsp?postID=<%= p.getId()%>" >
+                            <%}else{%>
+                            <img class="media-object" src="style/img/default.png" >
+                            <%}%>
+
                         </a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading"> <a href="detail.jsp?post_id=<%=p.getId()%>"> <%=p.getTitle()%> </a> 
+                        <h4 class="media-heading"> <a href="detail?post_id=<%=p.getId()%>"> <%=p.getTitle()%> </a> 
                             <small><i>Posted on <%=ft.format(p.getDate())%></i></small> </h4>
                         <%= p.getContent()%><br/>
-                        By:<a href="profile.jsp?user_id=<%=p.getUser_id().getId()%>"> 
+                        By:<a href="profiles?user_id=<%=p.getUser_id().getId()%>"> 
                             <i><%= p.getUser_id().getFirst_name() + " " + p.getUser_id().getLast_name()%> </i></a>
                     </div>
 
                 </div>
             </div>
-            <% } %>
-             <div class="col-md-12 text-center">
-                <a href="allListing.jsp?cat=<%=sub_id%>" class="btn btn-primary btn-rounded">View all listings<i class="fa fa-long-arrow-right"></i></a>
+            <% }%>
+            <div class="col-md-12 text-center">
+                <a href="allListing?cat=<%=sub_id%>" class="btn btn-primary btn-rounded">View all listings<i class="fa fa-long-arrow-right"></i></a>
             </div>
 
-          <%  } else {%>
+            <%  } else {%>
             <h2>No Posts yet</h2>
             <%}%>
 
 
-           
+
 
             <div class="col-md-12">
                 <hr />
@@ -234,13 +240,13 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
-                                <img class="media-object" src="style/img/item-1.jpg" >
+                                <img class="media-object" src="imageView.jsp?postID=<%= p.getId()%>" >
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading"> <a href="#"> <%= p.getTitle()%> </a> <small><i>Posted on <%=p.getDate()%></i></small> </h4>
+                            <h4 class="media-heading"> <a href="detail?post_id=<%=p.getId()%>"> <%= p.getTitle()%> </a> <small><i>Posted on <%=p.getDate()%></i></small> </h4>
                             <%= p.getContent()%><br/>
-                            By:<a href="#">   <i><%= p.getUser_id().getFirst_name() + " " + p.getUser_id().getLast_name()%> </i></a>
+                            By:<a href="profiles?user_id=<%=p.getUser_id().getId()%>">   <i><%= p.getUser_id().getFirst_name() + " " + p.getUser_id().getLast_name()%> </i></a>
                         </div>
 
                     </div>

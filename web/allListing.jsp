@@ -77,7 +77,7 @@
                                 <td>
                                     <div class="image-wrapper">
                                         <a class="image img-responsive" href="editlisting.html">
-                                            <img src="style/img/item-4.jpg" alt="locations items">
+                                            <img class="media-object" src="imageView.jsp?postID=<%= p.getId()%>" >
                                         </a>
                                     </div>
 
@@ -88,8 +88,8 @@
                                     </div>
                                 </td>
 
-                                <td class="viwes">426</td>
-                                <td class="reviwes">43</td>
+                                <td class="viwes"><%= p.getVisit()%></td>
+                                <td class="reviwes"><%= p.getComments().size()%></td>
 
 
                                 <td class="last-edited">
@@ -109,7 +109,7 @@
 
                                     <div class="image-wrapper">
                                         <a class="image img-responsive" href="editlisting.html">
-                                            <img src="style/img/item-4.jpg" alt="locations items">
+                                            <img class="media-object" src="imageView.jsp?postID=<%= po.getId()%>" >
                                         </a>
                                     </div>
 
@@ -120,8 +120,8 @@
                                     </div>
                                 </td>
 
-                                <td class="viwes">426</td>
-                                <td class="reviwes">43</td>
+                                <td class="viwes"><%= po.getVisit()%></td>
+                                <td class="reviwes"><%= po.getComments().size()%></td>
 
 
                                 <td class="last-edited">

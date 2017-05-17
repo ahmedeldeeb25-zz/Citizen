@@ -80,6 +80,7 @@
         <servlet-name>editPost</servlet-name>
         <url-pattern>/editPost</url-pattern>
     </servlet-mapping>
+     
     <session-config>
         <session-timeout>
             30
@@ -88,8 +89,7 @@
     <welcome-file-list>
         <welcome-file>index</welcome-file>
     </welcome-file-list>
-    
-    <error-page>
+<!--    <error-page>
         <error-code>404</error-code>
         <location>/error.jsp</location>
     </error-page>
@@ -97,6 +97,5 @@
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/error.jsp</location>
-    </error-page>
-   
+    </error-page>-->
 </web-app>

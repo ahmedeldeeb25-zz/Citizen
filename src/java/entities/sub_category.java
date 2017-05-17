@@ -8,6 +8,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class sub_category {
     @JoinColumn(name = "category_id")
     private category cat_id;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
     private Collection<post> posts = new ArrayList<post>();
 
     public Collection<post> getPosts() {

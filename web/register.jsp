@@ -1,7 +1,7 @@
 
 <%@page import="entities.profile"%>
-<%@page import="classes.user"%>
-<%@page import="classes.test"%>
+<%@page import="model.user"%>
+<%@page import="model.test"%>
 <%
 
 %>
@@ -55,25 +55,25 @@
 
                     <div class="col-sm-push-3 col-md-6 col-sm-6">
                         <h1>register</h1>
-                        <form action="register.jsp" method="post">
+                        <form action="register.jsp" method="post" onclick="registerValidation()">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" class="form-control" name="First_name" id="exampleInputEmail1" placeholder="First Name">
+                                    <input required type="text" class="form-control" name="First_name" id="exampleInputEmail1" placeholder="First Name">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" name="Last_name" class="form-control" id="exampleInputPassword1" placeholder="Last Name">
+                                    <input required type="text" name="Last_name" class="form-control" id="exampleInputPassword1" placeholder="Last Name">
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>City</label>
-                                    <select class="selectpicker" name="Address">
+                                    <select required class="selectpicker" name="Address">
                                         <option>Alex</option>
                                         <option>cairo</option>
                                         <option>shebin</option>
@@ -87,7 +87,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" name="Email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                                    <input required type="email" name="Email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                                    <p class="alert alert-danger hidden emailValid"></p>
                                 </div>
                             </div>
 
@@ -95,19 +96,21 @@
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" name="Password" class="form-control" id="exampleInputEmail1" placeholder="Password">
+                                    <p class="alert alert-danger hidden passValid"></p>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Confirm Password</label>
-                                    <input type="text" name="Phone" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+                                    <input required type="password" name="confirm Password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+                                    <p class="alert alert-danger hidden confimPass"></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Security question</label>
-                                    <select class="selectpicker" name="sec_question" >
+                                    <select required class="selectpicker" name="sec_question" >
                                         <option>What is .....?</option>
                                         <option>What is .....?</option>
                                         <option>What is .....?</option>
@@ -121,7 +124,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Your Answer</label>
-                                    <input type="text" name="answer" class="form-control" id="exampleInputPassword1" placeholder="Answer">
+                                    <input required type="text" name="answer" class="form-control" id="exampleInputPassword1" placeholder="Answer">
                                 </div>
                             </div>
 

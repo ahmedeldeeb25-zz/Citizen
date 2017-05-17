@@ -29,7 +29,15 @@ public class profiles extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        int userId = Integer.parseInt(String.valueOf(session.getAttribute("userID")));
+        int userId;
+
+        if (request.getParameter("user_id") != null) {
+//            userId = Integer.parseInt(String.valueOf(session.getAttribute("userID")));
+            userId = Integer.parseInt(request.getParameter("user_id"));
+        } else {
+
+            userId = Integer.parseInt(String.valueOf(session.getAttribute("userID")));
+        }
         user u = new user();
         profile user = u.getUser(userId);
 

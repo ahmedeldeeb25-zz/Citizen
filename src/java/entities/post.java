@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -27,26 +29,27 @@ import javax.persistence.TemporalType;
 @Entity
 public class post {
     
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String title;
     @Column(insertable = true, updatable = true, nullable = false, length = 255)
     private String content;
     
-    @Column(columnDefinition = "BLOB")
+    @Column(columnDefinition = "LONGBLOB default NULL")
     private byte[] pic;
+    @Column(columnDefinition = "integer default 0")
     private int visit;
     //@Column(name = "myColumn", nullable = false, columnDefinition = "int default 100")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
-    private int comment;
+    
     private int rate;
     private String address;
     private String phone;
     private String email;
     private String website;
     private String video_url;
-    
     
     @ManyToOne
     @JoinColumn(name="City")
@@ -58,6 +61,7 @@ public class post {
     @JoinColumn(name="user_id")
     private profile user_id;
     @OneToMany(mappedBy = "Post_id",cascade = CascadeType.REMOVE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<comment> comments=new ArrayList<comment>();
     
      
@@ -185,13 +189,7 @@ public class post {
         this.user_id = user_id;
     }
 
-    public int getComment() {
-        return comment;
-    }
-
-    public void setComment(int comment) {
-        this.comment = comment;
-    }
+    
 
     public int getRate() {
         return rate;

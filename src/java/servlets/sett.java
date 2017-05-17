@@ -7,20 +7,29 @@ package servlets;
 
 import model.user;
 import entities.profile;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import javax.swing.JOptionPane;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
- * @author Ahmed_Eldeeb
+ * @author Enjoy
  */
-public class register extends HttpServlet {
+@MultipartConfig(maxFileSize = 169999999)
+public class sett extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,51 +39,50 @@ public class register extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-    
      */
+     public static byte[] readFully(InputStream input) throws IOException {
+        byte[] buffer = new byte[50000];
+        int bytesRead;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(buffer, 0, bytesRead);
+        }
+        return output.toByteArray();
+    }
+     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession session = request.getSession();
-
-        if (session.getAttribute("userID") == null) {
-            if (request.getParameter("Register") != null) {
-              //  user u = new user();
-                profile p = new profile();
-
-                p.setFirst_name(request.getParameter("First_name"));
-                p.setLast_name(request.getParameter("Last_name"));
-                p.setAddress(request.getParameter("Address"));
-                p.setEmail(request.getParameter("Email"));
-                p.setPassword(request.getParameter("Password"));
-                p.setSec_question(request.getParameter("sec_question"));
-                p.setAnswer(request.getParameter("answer"));
-                
-
-                Boolean status =true;
-                        //u.register(p);
-                if (status != false) {
-                    response.sendRedirect("signin");
-                }
-            } else {
-                RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-                rd.forward(request, response);
-            }
-        } else {
-            response.sendRedirect("profiles");
-        }
+       PrintWriter out = response.getWriter();
+       
+        profile x=new profile();
+       x.setFirst_name(request.getParameter("fname"));
+       x.setLast_name(request.getParameter("lname"));
+       x.setEmail(request.getParameter("email"));
+       x.setPhone(request.getParameter("phone"));
+        x.setAbout(request.getParameter("about"));
+       x.setPhone(request.getParameter("phone"));
+       x.setSocial(request.getParameter("face")+"\n"+request.getParameter("twitter"));
+       
+//        Part filepart=request.getPart("img");
+//       InputStream inputstream=null;
+//        
+//       if(filepart!=null){
+//           
+//           long filesize=filepart.getSize();
+//           String filecontent = filepart.getContentType();
+//           inputstream=filepart.getInputStream();
+//           
+//       }
+//       BLOB bytes = readFully(inputstream);
+//       x.setPicture(bytes);
+      
+        user o = new user();
+       o.updateProfile(x);
+       out.close();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

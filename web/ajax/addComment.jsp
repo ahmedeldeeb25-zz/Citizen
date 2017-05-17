@@ -42,17 +42,17 @@
     s.close();
 
 /////////////Display all Comments//////////////// 
-    s = t.openConnection();
-    Criteria criteria = s.createCriteria(comment.class);
+    
 
-    List<comment> comments = (List<comment>) criteria.list();
+
+    List<comment> comments =(List<comment>) Post.getComments();
   
    for(comment com:comments){
 %>
 
 <div class="review">
     <div class="image">
-        <img src="style/img/panner.jpg" class="img-responsive center-block" alt="locations person">
+        <img src="imageView.jsp?user_id=<%= com.getUser_id().getId() %>" class="img-responsive center-block" alt="locations person">
     </div>
 
     <div class="discription">

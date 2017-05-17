@@ -8,6 +8,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class govern {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-    @OneToMany(mappedBy="gov_id")
+    @OneToMany(mappedBy="gov_id",fetch = FetchType.EAGER )
     private Collection<city> City=new ArrayList<city>();
 
     public int getId() {

@@ -94,7 +94,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.jsp"><img class="img-responsive" src="style/img/logo.png"></a>
+                    <a class="navbar-brand" href="index"><img class="img-responsive" src="style/img/logo.png"></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -108,7 +108,7 @@
                         <li><a href="signin">sign in</a></li>
                         <li><a href="register">register</a></li>
                             <%} else {%>
-                        <li><a href="profile.jsp"><%= session.getAttribute("userName")%></a></li>
+                        <li><a href="profiles"><%= session.getAttribute("userName")%></a></li>
 
 
                         <li>

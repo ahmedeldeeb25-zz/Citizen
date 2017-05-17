@@ -40,7 +40,7 @@ public class signin extends HttpServlet {
                 if (user != null) {
                     session.setAttribute("userID", user.getId());
                     session.setAttribute("userName", user.getFirst_name() + " " + user.getLast_name());
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("index");
                     return;
                 } else {
                     request.setAttribute("error", "Invalid username or password");

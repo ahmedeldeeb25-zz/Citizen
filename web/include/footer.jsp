@@ -25,6 +25,7 @@
         <script src="style/js/smooth-scroll.min.js"></script>
         <script src="style/js/jqstyles.js"></script>
         <script src="style/js/bootstrap.min.js"></script>
+        <script src="style/js/validation.js"></script>
 
        
 

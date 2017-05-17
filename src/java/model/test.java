@@ -6,6 +6,8 @@
 package model;
 
 import entities.category;
+import entities.city;
+import entities.govern;
 import entities.post;
 import entities.profile;
 import entities.sub_category;
@@ -42,21 +44,19 @@ public class test {
 
     public static void main(String[] args) {
 
-//        SessionFactory sessionfactory = new Configuration().configure().buildSessionFactory();
-//        Session session = sessionfactory.openSession();
-//        session.beginTransaction();
-//
-// 
-//
-//        session.getTransaction().commit();
-//        session.close();
-///////////////////////////////////////////////////
-        user u = new user();
-            profile user = u.getUser(1);
-            user.setFirst_name("malek");
-           
-            u.updateProfile(user);
+        SessionFactory sessionfactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionfactory.openSession();
+        session.beginTransaction();
+        
+        post p=new post();
         
 
+         
+ 
+
+        session.getTransaction().commit();
+        session.close();
+///////////////////////////////////////////////////
+    
     }
 }

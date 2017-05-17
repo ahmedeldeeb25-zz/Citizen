@@ -12,12 +12,12 @@
 
         <div class="row">
             <ol>
-                <li><a href="index.html">home / </a></li>
-                <li><a href="profile.html"> your profile</a></li>
+                <li><a href="index">home / </a></li>
+                <li><a href="profile"> your profile</a></li>
             </ol>
 
             <div id="setting">
-                <i class="fa fa-cogs" aria-hidden="true"></i> <a href="setting.html"> Setting</a>
+                <i class="fa fa-cogs" aria-hidden="true"></i> <a href="setting"> Setting</a>
             </div>
 
         </div>
@@ -37,7 +37,7 @@
 
                 <div class="col-md-12">
                     <div class=" text-center profile-image">
-                        <img src="style/img/milan.jpg" class="img-responsive center-block" alt="my profile image">
+                        <img src="userImage.jsp?userID=3" class="img-responsive center-block" alt="my profile image">
                     </div> 
                 </div>
 
@@ -76,7 +76,7 @@
                                              <td>
                                                  <div class="image-wrapper">
                                                      <a class="image img-responsive" href="editlisting.html">
-                                                         <img src="style/img/item-4.jpg" alt="locations items">
+                                                           <img class="media-object" src="imageView.jsp?postID=<%= p.getId() %>" >
                                                      </a>
                                                  </div>
 
@@ -91,13 +91,15 @@
                                              <td class="last-edited">
                                                  Today 15:30
 
+                                                 <% if((session.getAttribute("userID") != null && request.getParameter("user_id") ==null) || request.getParameter("user_id") == session.getAttribute("userID")  ){ %>
                                                  <div class="edit-options">
-                                                     <a href="editlisting.html" class="link icon"><i class="fa fa-edit"></i>Edit</a>
+                                                     <a href="AddPost?post_id=<%= p.getId() %>" class="link icon"><i class="fa fa-edit"></i>Edit</a>
                                                      <c:url value="detail" var="base" />
                                                      <a href="${base}?post_id=<%= p.getId() %>" class="link icon"><i class="fa fa-comment"></i>Reviews</a>
                                                      <a href="${base}?delete=<%= p.getId() %>" class="delete link icon"><i class="fa fa-trash"></i>Delete</a>
 
                                                  </div>
+                                                     <% } %>
                                              </td>
                                          </tr>
                                         <%}%>

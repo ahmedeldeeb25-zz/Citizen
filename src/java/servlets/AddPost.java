@@ -5,8 +5,11 @@
  */
 package servlets;
 
+import entities.city;
 import model.Post_Controller;
 import entities.post;
+import entities.profile;
+import entities.sub_category;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +19,10 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
+import model.Categories;
+import model.Cities;
+import model.Posts;
+import model.user;
 
 /**
  *
@@ -24,9 +31,7 @@ import javax.servlet.http.*;
 @MultipartConfig(maxFileSize = 169999999)
 public class AddPost extends HttpServlet {
 
-    /**
-     * ******************************************
-     */
+    
     public static byte[] readFully(InputStream input) throws IOException {
         byte[] buffer = new byte[50000];
         int bytesRead;
@@ -45,41 +50,130 @@ public class AddPost extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        if(request.getParameter("Addpost") != null){
-        post x = new post();
-        x.setAddress(request.getParameter("address"));
+        HttpSession session = request.getSession();
 
-        x.setContent(request.getParameter("desc"));
-        x.setDate(new Date());
-        x.setPhone(request.getParameter("phone"));
-        x.setEmail(request.getParameter("email"));
-        x.setWebsite(request.getParameter("web"));
-        x.setVideo_url(request.getParameter("url"));
-        x.setTitle(request.getParameter("title"));
+        if (request.getParameter("Addpost") != null) {
+            user u = new user();
+            profile user = u.getUser(Integer.parseInt(String.valueOf(session.getAttribute("userID"))));
 
-        System.out.println(".......................");
-        Part filepart = request.getPart("img");
-        
-        InputStream inputstream = null;
+            Cities city = new Cities();
+            city c = city.getCity(Integer.parseInt(request.getParameter("city")));
 
-        if (filepart != null) {
+            Categories cats = new Categories();
+            sub_category sub = cats.getSubCategory(Integer.parseInt(request.getParameter("cat")));
 
-            long filesize = filepart.getSize();
-            String filecontent = filepart.getContentType();
-            inputstream = filepart.getInputStream();
+            post x = new post();
 
-        }
-        System.out.println("...................");
-        byte[] bytes = readFully(inputstream);
-        x.setPic(bytes);
+            x.setAddress(request.getParameter("address"));
+            x.setContent(request.getParameter("desc"));
+            x.setDate(new Date());
+            x.setPhone(request.getParameter("phone"));
+            x.setEmail(request.getParameter("email"));
+            x.setWebsite(request.getParameter("web"));
+            x.setVideo_url(request.getParameter("url"));
+            x.setTitle(request.getParameter("title"));
+           
 
-        Post_Controller a = new Post_Controller();
-        out.print(a.addPost(x));
+            System.out.println(".......................");
+            Part filepart = request.getPart("img");
 
-        out.close();
+            InputStream inputstream = null;
+
+            if (filepart != null) {
+
+                long filesize = filepart.getSize();
+                String filecontent = filepart.getContentType();
+                inputstream = filepart.getInputStream();
+
+            }
+            System.out.println("...................");
+            byte[] bytes = readFully(inputstream);
+            x.setPic(bytes);
+
+            user.getPosts().add(x);
+            c.getPosts().add(x);
+            sub.getPosts().add(x);
+
+            x.setUser_id(user);
+            x.setCity(c);
+            x.setCategory(sub);
+
+            Post_Controller a = new Post_Controller();
+            if(a.addPost(x) == "true"){
+                response.sendRedirect("index");
+                return;
+            }
+
+            out.close();
+        } else if (request.getParameter("updatePost") != null) {
+
+            int postID = Integer.parseInt(request.getParameter("update"));
+            user u = new user();
+            profile user = u.getUser(Integer.parseInt(String.valueOf(session.getAttribute("userID"))));
+
+            Cities city = new Cities();
+            //city c = city.getCity(Integer.parseInt(request.getParameter("city")));
+            city c = city.getCity(1);
+
+            Categories cats = new Categories();
+            //sub_category sub = cats.getSubCategory(Integer.parseInt(request.getParameter("cat")));
+            sub_category sub = cats.getSubCategory(1);
+
+            post x = new post();
+
+            x.setAddress(request.getParameter("address"));
+            x.setContent(request.getParameter("desc"));
+            x.setDate(new Date());
+            x.setPhone(request.getParameter("phone"));
+            x.setEmail(request.getParameter("email"));
+            x.setWebsite(request.getParameter("web"));
+            x.setVideo_url(request.getParameter("url"));
+            x.setTitle(request.getParameter("title"));
+
+            System.out.println(".......................");
+            Part filepart = request.getPart("img");
+
+            InputStream inputstream = null;
+
+            if (filepart != null) {
+
+                long filesize = filepart.getSize();
+                String filecontent = filepart.getContentType();
+                inputstream = filepart.getInputStream();
+
+            }
+            System.out.println("...................");
+            byte[] bytes = readFully(inputstream);
+            x.setPic(bytes);
+
+            user.getPosts().add(x);
+            c.getPosts().add(x);
+            sub.getPosts().add(x);
+
+            x.setUser_id(user);
+            x.setCity(c);
+            x.setCategory(sub);
+
+            Post_Controller a = new Post_Controller();
+            a.updatePost(x, postID);
+
+            out.close();
+            return;
+        } else if (request.getParameter("post_id") != null) {
+
+            Posts post = new Posts();
+
+            post p = post.getPost(Integer.parseInt(request.getParameter("post_id")));
+
+            request.setAttribute("post", p);
+
+            RequestDispatcher rd = request.getRequestDispatcher("updatePost.jsp");
+            rd.forward(request, response);
+            return;
+
         }
         RequestDispatcher rd = request.getRequestDispatcher("addpost.jsp");
-         rd.forward(request, response);
+        rd.forward(request, response);
 
     }
 
