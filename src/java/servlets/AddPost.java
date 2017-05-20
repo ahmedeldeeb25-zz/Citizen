@@ -72,6 +72,8 @@ public class AddPost extends HttpServlet {
             x.setWebsite(request.getParameter("web"));
             x.setVideo_url(request.getParameter("url"));
             x.setTitle(request.getParameter("title"));
+            x.setLang(request.getParameter("lang"));
+            x.setLat(request.getParameter("lat"));
            
 
             System.out.println(".......................");
@@ -103,6 +105,8 @@ public class AddPost extends HttpServlet {
                 response.sendRedirect("index");
                 return;
             }
+            out.print("Error");
+            
 
             out.close();
         } else if (request.getParameter("updatePost") != null) {
@@ -129,6 +133,8 @@ public class AddPost extends HttpServlet {
             x.setWebsite(request.getParameter("web"));
             x.setVideo_url(request.getParameter("url"));
             x.setTitle(request.getParameter("title"));
+            x.setLang(request.getParameter("lang"));
+            x.setLat(request.getParameter("lat"));
 
             System.out.println(".......................");
             Part filepart = request.getPart("img");
