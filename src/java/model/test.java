@@ -48,7 +48,6 @@ public class test {
         Session session = sessionfactory.openSession();
         session.beginTransaction();
         
-        post p=new post();
         
 
          

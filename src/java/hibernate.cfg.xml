@@ -19,5 +19,6 @@
     <mapping class="entities.city"/>
     <mapping class="entities.interest"/>
     <mapping class="entities.notification"/>
+    <mapping class="entities.Suggested"/>
   </session-factory>
 </hibernate-configuration>

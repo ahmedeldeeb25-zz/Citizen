@@ -64,6 +64,27 @@ public class post {
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<comment> comments=new ArrayList<comment>();
     
+    
+    private String Lang;
+    private String Lat;
+
+    public String getLang() {
+        return Lang;
+    }
+
+    public void setLang(String Lang) {
+        this.Lang = Lang;
+    }
+
+    public String getLat() {
+        return Lat;
+    }
+
+    public void setLat(String Lat) {
+        this.Lat = Lat;
+    }
+    
+    
      
     public String getContent() {
         return content;
