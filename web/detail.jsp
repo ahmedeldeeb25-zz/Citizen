@@ -1,3 +1,8 @@
+<%@page import="model.Suggests"%>
+<%@page import="model.Suggests"%>
+<%@page import="model.Suggests"%>
+<%@page import="model.Posts"%>
+<%@page import="javax.swing.JOptionPane"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="entities.comment"%>
@@ -6,15 +11,28 @@
 <%@page import="model.test"%>
 <%@page import="entities.post"%>
 <%
-    /*int post_id = Integer.parseInt(request.getParameter("post_id"));
 
-    post p;
-    test t = new test();
+    if (session.getAttribute("from") != null) {
+        if (String.valueOf(session.getAttribute("from")) == "0") {
+            session.setAttribute("from", request.getParameter("post_id"));
+            //JOptionPane.showMessageDialog(null, "34");
+        } else {
+            session.setAttribute("to", request.getParameter("post_id"));
+            //JOptionPane.showMessageDialog(null, "102");
+            int from = Integer.parseInt(String.valueOf(session.getAttribute("from")));
+            int to = Integer.parseInt(String.valueOf(session.getAttribute("to")));
+            Suggests s = new Suggests();
+            if (to != from) 
+                s.updatesuggest(from, to);
+            session.setAttribute("from", session.getAttribute("to"));
+            session.setAttribute("to", "0");
+        }
 
-    Session s = t.openConnection();
-    p = (post) s.get(post.class, post_id);
-     */
+    }
+
     post p = (post) request.getAttribute("p");
+    List<Integer> sp = (List<Integer>) request.getAttribute("suggestedPosts");
+
 
 %>
 <%@include file="include/header.jsp" %>
@@ -71,9 +89,9 @@
 
     <div class="text-center">
         <img class="thumbnail" style="margin:20px auto;width: 434px; height:293"  src="imageView.jsp?postID=<%= p.getId()%>" >
-<!--        <img class="thumbnail" src="style/img/item-2.jpg" style="
-             margin:20px auto;
-             ">-->
+        <!--        <img class="thumbnail" src="style/img/item-2.jpg" style="
+                     margin:20px auto;
+                     ">-->
     </div>
 </section>
 
@@ -163,8 +181,8 @@
             <div class="col-md-5 col-sm-5">
                 <div class="detail-sidebar">
                     <div class="detail-map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.7961716107397!2d31.221992714427266!3d30.042704981882846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145840d12f1cc3c1%3A0xde3e1b56b22e91f8!2sCairo+Opera+House!5e0!3m2!1sen!2seg!4v1489375607242" width="100%" height="310px" background-color: "rgb(229, 227, 223)" frameborder="0" style="border:0" allowfullscreen></iframe>
-                    </div>
+                        
+<div style="width: 100%"><iframe width="100%" height="400" src="https://www.maps.ie/create-google-map/map.php?width=100%&amp;height=600&amp;hl=en&amp;q=cairo+(yourlocation)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=A&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.mapsdirections.info/it/misura-distanza-area-google-maps.html">Misurare distanze google maps</a></iframe></div><br />                    </div>
 
                     <div class="content">
                         <address>
@@ -200,36 +218,23 @@
 
 <div class="row">
     <div class="container">
+        <% if (sp.size() > 0) { %>
+        <% for (int i = 0; i < sp.size(); i++) {%>
+        <% Posts post = new Posts();
+            post pp = post.getPost(sp.get(i));
+        %>
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="style/img/milan.jpg">
+                <img  src="imageView.jsp?postID=<%= pp.getId()%>">
                 <div class="caption">
-                    <h3>Post Number one</h3>
-                    <p>lorum epsum foren proum lorum epsum foren proum lorum epsum foren proum</p>
+                    <a href="detail?post_id=<%=pp.getId()%>"> <h3><%= pp.getTitle()%></h3></a>
+                    <p><%= pp.getContent()%></p>
                 </div>
             </div>
         </div>
-        
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="style/img/milan.jpg">
-                <div class="caption">
-                    <h3>Post Number one</h3>
-                    <p>lorum epsum foren proum lorum epsum foren proum lorum epsum foren proum</p>
-                    
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="style/img/milan.jpg">
-                <div class="caption">
-                    <h3>Post Number one</h3>
-                    <p>lorum epsum foren proum lorum epsum foren proum lorum epsum foren proum</p>
-                </div>
-            </div>
-        </div>
+        <%}%>
+        <%}%>
+
     </div>
 </div>
 
