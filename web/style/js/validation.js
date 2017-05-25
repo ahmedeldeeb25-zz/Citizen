@@ -44,11 +44,17 @@ function registerValidation() {
     });
     // confirm password 
     $("input[name='confirm Password']").blur(function (e) {
-        if (!passPatter.test($("input[name='Password']").val())) {
-            $(".confimPass").html("-Your Password must have : \n one lower case \n one upper case \n 8 characters at least");
+        if ($("input[name='confirm Password']").val().trim() != $("input[name='Password']").val().trim()) {
+            $(".confimPass").html("Not Identical");
             $(".confimPass").removeClass("hidden");
         } else if (passPatter.test($("input[name='confirm Password']").val())) {
             $(".confimPass").addClass("hidden");
         }
     });
+
+//    console.log($("input").val() == "" ? $("input").attr("name") : "aa");
+//    $("input").val() == "" ? $("button").attr("disabled", "true") : $("button").attr("disabled", "false");
+
+     
+//    $("input").val() ==""?$("button").attr("disabled","true") : $("button").attr("disabled","false");
 }

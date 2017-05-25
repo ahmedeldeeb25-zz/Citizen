@@ -100,7 +100,14 @@
 
 
 <script>
+
+
     $(document).ready(function () {
+
+        $("input").each(function () {
+            $(this).attr("required", "true");
+        });
+
         $("#mainCat").on("change", function (e) {
             $.ajax({
                 url: "ajax/subCategories.jsp",
@@ -151,9 +158,9 @@
 
 <div class="center-block" style="width: 50%;height:50% ;margin: 50px auto">
     <h2 class="text-center">Choose Your Address on the map</h2>
-            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-            <div id="map"></div>
-        </div>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map"></div>
+</div>
 
 <section class="signin addlisintpage">
     <div class="container">
@@ -222,11 +229,11 @@
                             </div>
 
                             <div class="col-md-6">
-                               <!---New Item here------------->
+                                <!---New Item here------------->
 
-                                
+
                             </div>
-                            
+
                             <input type="hidden" name="lang" value="151.2195">
                             <input type="hidden" name="lat" value="-33.8688">
                             <input type="hidden" name="address" value="Egypt">
@@ -310,87 +317,87 @@
 </section>
 
 
-       <script>
-            // This example adds a search box to a map, using the Google Place Autocomplete
-            // feature. People can enter geographical searches. The search box will return a
-            // pick list containing a mix of places and predicted search terms.
+<script>
+    // This example adds a search box to a map, using the Google Place Autocomplete
+    // feature. People can enter geographical searches. The search box will return a
+    // pick list containing a mix of places and predicted search terms.
 
-            // This example requires the Places library. Include the libraries=places
-            // parameter when you first load the API. For example:
-            // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-
-
-            // This will contain all markers positions
-            var savedPositions = [];
-
-            function initAutocomplete() {
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: -33.8688, lng: 151.2195},
-                    zoom: 13,
-                    mapTypeId: 'roadmap'
-                });
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 
-                var input = document.getElementById('pac-input');
-                var searchBox = new google.maps.places.SearchBox(input);
-                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // This will contain all markers positions
+    var savedPositions = [];
+
+    function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -33.8688, lng: 151.2195},
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
 
 
-                map.addListener('bounds_changed', function () {
-                    searchBox.setBounds(map.getBounds());
-                });
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-                var markers = [];
 
-                searchBox.addListener('places_changed', function () {
-                    var places = searchBox.getPlaces();
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+        });
 
-                    if (places.length == 0) {
-                        return;
-                    }
+        var markers = [];
 
-                    markers.forEach(function (marker) {
-                        marker.setMap(null);
-                    });
-                    markers = [];
-                    var bounds = new google.maps.LatLngBounds();
-                    places.forEach(function (place) {
-                        if (!place.geometry) {
-                            console.log("Returned place contains no geometry");
-                            return;
-                        }
-                        var icon = {
-                            url: place.icon,
-                            size: new google.maps.Size(71, 71),
-                            origin: new google.maps.Point(0, 0),
-                            anchor: new google.maps.Point(17, 34),
-                            scaledSize: new google.maps.Size(25, 25)
-                        };
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
 
-                        markers.push(new google.maps.Marker({
-                            map: map,
-                            icon: icon,
-                            title: place.name,
-                            position: place.geometry.location
-                        }));
-
-                        // Here you can keep all markers positions
-                        savedPositions.push({
-                            name: place.name,
-                            lat: place.geometry.location.lat(), // latitude
-                            lng: place.geometry.location.lng() // longitude
-                        });
-
-                        if (place.geometry.viewport) {
-                            bounds.union(place.geometry.viewport);
-                        } else {
-                            bounds.extend(place.geometry.location);
-                        }
-                    });
-                    map.fitBounds(bounds);
-                });
+            if (places.length == 0) {
+                return;
             }
+
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+
+                // Here you can keep all markers positions
+                savedPositions.push({
+                    name: place.name,
+                    lat: place.geometry.location.lat(), // latitude
+                    lng: place.geometry.location.lng() // longitude
+                });
+
+                if (place.geometry.viewport) {
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
 
 //            document.getElementById("pac-input").onblur = function () {
 //                myFunction()
@@ -406,33 +413,33 @@
 //                }
 //            }
 
-            $(document).ready(function () {
-                $("button[name='Addpost']").click(function (event) {
-                    
-                    try {
-                       
-                        $("input[name='lang']").val(savedPositions[savedPositions.length -1]["lng"]);
-                        $("input[name='lat']").val(savedPositions[savedPositions.length -1]["lat"]);
-                        $("input[name='address']").val(savedPositions[savedPositions.length -1]["name"]);
-                    } catch (e) {
-                        console.log("Empty values")
-                    }
-                });
+    $(document).ready(function () {
+        $("button[name='Addpost']").click(function (event) {
 
-            });
+            try {
 
-        </script>
+                $("input[name='lang']").val(savedPositions[savedPositions.length - 1]["lng"]);
+                $("input[name='lat']").val(savedPositions[savedPositions.length - 1]["lat"]);
+                $("input[name='address']").val(savedPositions[savedPositions.length - 1]["name"]);
+            } catch (e) {
+                console.log("Empty values")
+            }
+        });
+
+    });
+
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwKPH7hcDbfG8EnX7XlfWUIyodujiYy6U&libraries=places&callback=initAutocomplete"
-         async defer></script>
+async defer></script>
 
 
- <script src="style/js/jquery.nicescroll.min.js"></script>
-        <script src="style/js/smooth-scroll.min.js"></script>
-        <script src="style/js/jqstyles.js"></script>
-        <script src="style/js/bootstrap.min.js"></script>
-        <script src="style/js/validation.js"></script>
+<script src="style/js/jquery.nicescroll.min.js"></script>
+<script src="style/js/smooth-scroll.min.js"></script>
+<script src="style/js/jqstyles.js"></script>
+<script src="style/js/bootstrap.min.js"></script>
+<script src="style/js/validation.js"></script>
 
-       
 
-    </body>
+
+</body>
 </html>

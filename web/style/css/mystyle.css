@@ -9,6 +9,17 @@
     box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
      
 }
+
+.mapPro {
+    padding: 6px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc #ccc #999 #ccc;
+    -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+    -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+    box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
+     
+}
 #map {   
     height: 600px;
 }
@@ -62,4 +73,226 @@
     cursor: pointer;
     color: #fff;
     background: #6B41B9;
+}
+
+/*----------------------About Page------------------*/
+
+/*****************************************************************************
+/*****************************************************************************
+/*****************************************************************************
+/******************************** About Us PAge ******************************
+/*****************************************************************************
+/*****************************************************************************
+/*****************************************************************************
+/****************************************************************************/
+
+.mission, .about {
+    text-align: center;
+}
+
+.mission h1 {
+    margin-top: 35px;
+    margin-bottom: 15px;
+    color: #4611a7;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.mission p {
+    opacity: 0.8;
+    color: #232323;
+    font-size: 18px;
+    font-weight: lighter;
+    
+}
+
+.about {
+    margin-top: 20px;
+    padding-bottom: 40px
+}
+
+.about h2 {
+    margin-bottom: 15px;
+}
+
+.about p {
+    text-align: justify;
+    opacity: 0.8;
+    color: #232323;
+    font-size: 18px;
+    font-weight: lighter;
+    margin-bottom: 20px;
+}
+
+/* =============== Cards section ==============*/
+
+.team {
+    padding: 50px 0;
+}
+
+.team h2 {
+    text-align: center;
+}
+
+.team .card {
+    border-radius: 3px;
+    box-shadow: 0px 20px 45px rgba(0, 0, 0, 0.2), 0px 0px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 50px;
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.team .card:hover {
+    box-shadow: none;
+}
+
+.team .card img {
+    height: 250px;
+    width: 100%
+}
+
+.team .card .desc {
+    padding: 10px;
+    background: #4711a7;
+    padding-bottom: 5px;
+    background: -webkit-linear-gradient(left top, #fff, #dfdae9); 
+    background: -o-linear-gradient(bottom right, #fff, #dfdae9); 
+    background: -moz-linear-gradient(bottom right, #fff, #dfdae9); 
+    background: linear-gradient(to bottom right, #fff, #dfdae9);
+}
+
+.team .card .desc h3 {
+    margin-top: 0;
+    text-transform: capitalize;
+    color: #4711a7;
+    font-weight: lighter;
+    margin-bottom: 5px;
+}
+
+.team .card .desc h4 {
+    padding-bottom: 0;
+    margin-top: 0;
+    text-transform: capitalize;
+}
+
+/*****************************************************************************
+/*****************************************************************************
+/*****************************************************************************
+/**************************** How It Works PAge ******************************
+/*****************************************************************************
+/*****************************************************************************
+/*****************************************************************************
+/****************************************************************************/
+.how-works {
+    padding-bottom: 50px;
+}
+.how-works .title {
+    text-align: center;
+}
+
+.how-works .title h1 {
+    opacity: 0.8;
+    color: #4611a7;
+    font-size: 36px;
+    text-transform: capitalize;
+    font-weight: lighter;
+}
+
+.how-works .title p {
+    opacity: 0.6;
+    color: #232323;
+    font-size: 18px;
+    
+}
+
+.how-works .step {
+    position: relative;
+    margin-top: 50px;
+}
+
+.how-works .step .circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 175px;
+    background: #c3afe7;
+    border-radius: 100%;
+    width: 175px;
+    height: 175px;
+    text-align: center;
+    float: left;
+    moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.how-works .step .circle figure {
+    moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    width: 55px;
+    height: 55px;
+    background-color: #4611a7;
+    z-index: 1;
+    opacity: 1;
+}
+
+.how-works .step .circle i {
+    color: #fff;
+    font-size: 50px;
+    z-index: 1;
+    position: relative;
+    line-height: 175px;
+}
+
+.how-works .step .box {
+    padding: 20px;
+    position: relative;
+    background-color: #fafafa;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
+}
+
+.how-works .step .box h2 {
+    opacity: 0.8;
+    color: #4611a7;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    font-weight: lighter;
+} 
+
+.how-works .step .box p {
+    opacity: 0.7;
+    color: #232323;
+    margin-bottom: 20px;
+}   
+
+.how-works .step .circle-opp {
+    background: #6844a8;
+}
+
+.how-works .step .circle-search {
+    background: #8d6cc9;
+}
+
+.how-works .step .btn {
+    padding: 3px 10px;
+    text-transform: uppercase;
+    border-radius: 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border: 0;
 }

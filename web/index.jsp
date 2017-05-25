@@ -1,4 +1,5 @@
 
+<%@page import="model.Posts"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="org.hibernate.criterion.Order"%>
 <%@page import="model.system_Helper"%>
@@ -10,6 +11,10 @@
 <%@page import="entities.category"%>
 <%@page import="org.hibernate.Session"%>
 <%@page import="model.test"%>
+<%@page import="java.util.List"%>
+<%@page import="entities.post"%>
+<%@page import="model.Posts"%>
+<%@ page import="com.google.gson.Gson" %>
 <%
     List<category> c = (List<category>) request.getAttribute("categories");
     List<post> post_list = (List<post>) request.getAttribute("fistCat");
@@ -20,6 +25,45 @@
 %>
 
 <jsp:include page="include/header.jsp" />
+
+<%
+    Posts poo = new Posts();
+    List<post> posts = poo.getAll();
+%>
+<%
+    double array[][] = new double[posts.size()][2];
+
+    for (int i = 0; i < posts.size(); i++) {
+        array[i][0] = Double.parseDouble(posts.get(i).getLat());
+        array[i][1] = Double.parseDouble(posts.get(i).getLang());
+    }
+
+    String json = new Gson().toJson(array);
+
+
+%>
+
+<script>
+    function loadMap() {
+        var mapOptions = {
+            center: new google.maps.LatLng(28.0800558, 32.91066409999996
+                    ),
+            zoom: 6
+        }
+        var map = new google.maps.Map(document.getElementById("sample"), mapOptions);
+
+        var arr =<%=json%>;
+        var length =<%= posts.size()%>
+        for (var i = 0; i < length; i++) {
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(arr[i][0], arr[i][1]),
+                map: map,
+            });
+        }
+
+
+    }
+</script>
 
 <script>
     $(document).ready(function () {
@@ -80,15 +124,23 @@
 
 
 <!-- MAP SECTION ========================================= -->
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <div id="map-container">
-                <div id="map"></div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<!--<div class="col-sm-12">
+    <div id="map-container">-->
+<div id="sample"  style="
+     min-width:580px;min-height:550px; margin: 5px 5px;
+     padding: 6px;
+     border-width: 1.5px;
+     border-style: solid;
+     border-color: #ccc #ccc #999 #ccc;
+     -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+     -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+     box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
+
+     "></div>
+<!--    </div>
+</div>-->
+
 
 
 
@@ -99,8 +151,7 @@
     <div class="container">
         <div class="row">
 
-            <%
-                if (c.size() > 0) {
+            <%                if (c.size() > 0) {
                     for (category cat : c) {
             %>
 
@@ -159,9 +210,9 @@
                     <div class="media-left">
                         <a href="#">
 
-                            <% if(p.getPic() !=null){ %>
+                            <% if (p.getPic() != null) {%>
                             <img class="media-object" src="imageView.jsp?postID=<%= p.getId()%>" >
-                            <%}else{%>
+                            <%} else {%>
                             <img class="media-object" src="style/img/default.png" >
                             <%}%>
 

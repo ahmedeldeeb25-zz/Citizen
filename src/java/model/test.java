@@ -44,18 +44,53 @@ public class test {
 
     public static void main(String[] args) {
 
-        SessionFactory sessionfactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionfactory.openSession();
-        session.beginTransaction();
-        
-        
+        user u = new user();
+//            profile user = u.getUser(1);
+//
+//            Cities city = new Cities();
+//            city c = city.getCity(1);
+//
+//            Categories cats = new Categories();
+//            sub_category sub = cats.getSubCategory(1);
+//
+//            post x = new post();
+//
+//            x.setAddress("address");
+//            x.setContent("desc");
+//            x.setDate(new Date());
+//            x.setPhone("phone");
+//            x.setEmail("email");
+//            x.setWebsite("web");
+//            x.setVideo_url("url");
+//            x.setTitle("title");
+//            x.setLang("12");
+//            x.setLat("31");
+//           
+//
+//           
+//
+//            user.getPosts().add(x);
+//            c.getPosts().add(x);
+//            sub.getPosts().add(x);
+//
+//            x.setUser_id(user);
+//            x.setCity(c);
+//            x.setCategory(sub);
+//
+//            Post_Controller a = new Post_Controller();
+//            if(a.addPost(x) == "true"){
+//                System.out.println("aaaaaaaaaaaa");
+//            }
 
-         
- 
-
-        session.getTransaction().commit();
-        session.close();
+user x=new user();
+        x.getUser(1);
+        
+        Cities c=new Cities();
+        c.getCity(1);
+        
+        Categories f=new Categories();
+        f.getSubCategory(1);
 ///////////////////////////////////////////////////
-    
+
     }
 }

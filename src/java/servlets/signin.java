@@ -39,6 +39,8 @@ public class signin extends HttpServlet {
                 profile user = a.login(u);
                 if (user != null) {
                     session.setAttribute("userID", user.getId());
+                    session.setAttribute("from", "0");
+                    session.setAttribute("to", "0");
                     session.setAttribute("userName", user.getFirst_name() + " " + user.getLast_name());
                     response.sendRedirect("index");
                     return;

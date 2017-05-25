@@ -128,7 +128,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" name="Register" class="btn btn-default btn-lg">register now</button>
+                            <button   type="submit" name="Register" class="btn btn-default btn-lg">register now</button>
                         </form>
 
                         <hr />

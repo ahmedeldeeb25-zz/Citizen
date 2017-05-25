@@ -22,7 +22,7 @@
     </servlet>
     <servlet>
         <servlet-name>setting</servlet-name>
-        <servlet-class>servlets.setting</servlet-class>
+        <servlet-class>servlets.setting2</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>profiles</servlet-name>
@@ -40,6 +40,11 @@
         <servlet-name>editPost</servlet-name>
         <servlet-class>servlets.editPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>setting_profile</servlet-name>
+        <servlet-class>servlets.setting_profile</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>AddPost</servlet-name>
         <url-pattern>/AddPost</url-pattern>
@@ -80,7 +85,10 @@
         <servlet-name>editPost</servlet-name>
         <url-pattern>/editPost</url-pattern>
     </servlet-mapping>
-     
+    <servlet-mapping>
+        <servlet-name>setting_profile</servlet-name>
+        <url-pattern>/setting_profile</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -89,7 +97,7 @@
     <welcome-file-list>
         <welcome-file>index</welcome-file>
     </welcome-file-list>
-<!--    <error-page>
+    <!--    <error-page>
         <error-code>404</error-code>
         <location>/error.jsp</location>
     </error-page>

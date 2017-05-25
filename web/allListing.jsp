@@ -165,8 +165,8 @@
 
                                     <div class="info">
                                         <a href="detail.html"><h3><%= p.getTitle()%></h3></a>
-                                        <figure class="location">shebin</figure>
-                                        <figure class="label label-info">restaurant</figure>
+                                        <figure class="location"><%= p.getCity().getName() %></figure>
+                                        <figure class="label label-info"><%= p.getCategory().getName() %></figure>
                                     </div>
                                 </td>
 

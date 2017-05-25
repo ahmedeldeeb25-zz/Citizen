@@ -53,7 +53,7 @@ public class index extends HttpServlet {
 
         //get First Three posts order B date
         Criteria post_criteria = s.createCriteria(post.class).
-                addOrder(Order.desc("date")).setMaxResults(1);
+                addOrder(Order.desc("date")).setMaxResults(4);
 
         List<post> postList = (List<post>) post_criteria.list();
 
@@ -62,7 +62,7 @@ public class index extends HttpServlet {
         request.setAttribute("fistCat", posts);
         request.setAttribute("three", postList);
         
-        
+        s.close();
 
         //Disoatcher
         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
@@ -83,12 +83,12 @@ public class index extends HttpServlet {
 
         //Get first sub-category Posts
        Criteria post_c= s.createCriteria(post.class).
-                addOrder(Order.desc("date")).setMaxResults(1);
+                addOrder(Order.desc("date")).setMaxResults(4);
         List<post> posts = (List<post>) post_c.list();
 
         //get First Three posts order B date
         Criteria post_criteria = s.createCriteria(post.class).
-                addOrder(Order.desc("date")).setMaxResults(1);
+                addOrder(Order.desc("date")).setMaxResults(4);
 
         List<post> postList = (List<post>) post_criteria.list();
 

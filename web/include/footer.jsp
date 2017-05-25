@@ -8,10 +8,10 @@
 
                     <div class="col-md-6 hidden-xs">
                         <ul class="pull-right">
-                            <li><a href="index.html">home</a></li>
-                            <li><a href="listing.html">listings</a></li>
-                            <li><a href="addlist.html">submit item</a></li>
-                            <li><a href="contact.html">contact</a></li>
+                            <li><a href="index">home</a></li>
+                            <li><a href="about.jsp">About Us</a></li>
+                            <li><a href="how_works.jsp">How It Works</a></li>
+                            
                         </ul>
                     </div>
                 </div>

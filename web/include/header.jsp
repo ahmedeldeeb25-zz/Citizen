@@ -19,12 +19,14 @@
                <![endif]-->
 
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?Key=AIzaSyAwKPH7hcDbfG8EnX7XlfWUIyodujiYy6U&libraries=places&callback=initAutocomplete"></script>
+         
+         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4DvaNOnpTRUFASvy6lyY0DDVcfXytvnY&libraries=places&&callback=initMap">
+        </script>
         <script src="style/js/traffic_accidents.json"></script>
         <script type="text/javascript" src="style/js/markerclusterer.js"></script>
         <script src="style/js/jquery-2.2.3.min.js"></script>
         
-        <script>
+<!--        <script>
             function initialize() {
                 var center = new google.maps.LatLng(59.9214, 10.8463);
                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -78,11 +80,11 @@
             }
             google.load("visualization", "1", {packages: ["corechart"]});
             google.setOnLoadCallback(initialize);
-        </script>
+        </script>-->
 
     </head>
 
-    <body>
+    <body onload="loadMap()">
 
         <nav class="navbar navbar-default">
             <div class="container-fluid">

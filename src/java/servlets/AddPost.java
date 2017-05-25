@@ -31,7 +31,6 @@ import model.user;
 @MultipartConfig(maxFileSize = 169999999)
 public class AddPost extends HttpServlet {
 
-    
     public static byte[] readFully(InputStream input) throws IOException {
         byte[] buffer = new byte[50000];
         int bytesRead;
@@ -55,13 +54,15 @@ public class AddPost extends HttpServlet {
         if (request.getParameter("Addpost") != null) {
             user u = new user();
             profile user = u.getUser(Integer.parseInt(String.valueOf(session.getAttribute("userID"))));
+            //
 
             Cities city = new Cities();
             city c = city.getCity(Integer.parseInt(request.getParameter("city")));
+            //
 
             Categories cats = new Categories();
-            sub_category sub = cats.getSubCategory(Integer.parseInt(request.getParameter("cat")));
-
+            sub_category sub = cats.getSubCategory(Integer.parseInt(request.getParameter("city")));
+//
             post x = new post();
 
             x.setAddress(request.getParameter("address"));
@@ -74,8 +75,16 @@ public class AddPost extends HttpServlet {
             x.setTitle(request.getParameter("title"));
             x.setLang(request.getParameter("lang"));
             x.setLat(request.getParameter("lat"));
-           
 
+//            out.print(request.getParameter("address"));
+//            out.print(request.getParameter("desc"));
+//            out.print(request.getParameter("phone"));
+//            out.print(request.getParameter("email"));
+//            out.print(request.getParameter("web"));
+//            out.print(request.getParameter("url"));
+//            out.print(request.getParameter("title"));
+//            out.print(request.getParameter("lang"));
+//            out.print(request.getParameter("lat"));
             System.out.println(".......................");
             Part filepart = request.getPart("img");
 
@@ -101,12 +110,11 @@ public class AddPost extends HttpServlet {
             x.setCategory(sub);
 
             Post_Controller a = new Post_Controller();
-            if(a.addPost(x) == "true"){
+            if (a.addPost(x) == "true") {
                 response.sendRedirect("index");
                 return;
             }
             out.print("Error");
-            
 
             out.close();
         } else if (request.getParameter("updatePost") != null) {
@@ -116,12 +124,12 @@ public class AddPost extends HttpServlet {
             profile user = u.getUser(Integer.parseInt(String.valueOf(session.getAttribute("userID"))));
 
             Cities city = new Cities();
-            //city c = city.getCity(Integer.parseInt(request.getParameter("city")));
-            city c = city.getCity(1);
+            city c = city.getCity(Integer.parseInt(request.getParameter("city")));
+           // city c = city.getCity(1);
 
             Categories cats = new Categories();
-            //sub_category sub = cats.getSubCategory(Integer.parseInt(request.getParameter("cat")));
-            sub_category sub = cats.getSubCategory(1);
+            sub_category sub = cats.getSubCategory(Integer.parseInt(request.getParameter("cat")));
+           // sub_category sub = cats.getSubCategory(1);
 
             post x = new post();
 

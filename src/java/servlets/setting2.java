@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Ahmed_Eldeeb
  */
-public class setting extends HttpServlet {
+public class setting2 extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,16 +30,16 @@ public class setting extends HttpServlet {
 
         HttpSession session = request.getSession();
         int id = Integer.parseInt(String.valueOf(session.getAttribute("userID")));
-         user u = new user();
-      
-    //   if (request.getParameter("login") != null) {
-            profile user = u.getUser(id);
-            user.setFirst_name(request.getParameter("fname"));            
-            u.updateProfile(user);
-      //  }
+        user u = new user();
 
-       
-         user = u.getUser(id);
+//    //   if (request.getParameter("login") != null) {
+//            profile user = u.getUser(id);
+//            user.setFirst_name(request.getParameter("fname"));            
+//            u.updateProfile(user);
+//      //  }
+//
+//       
+        profile user = u.getUser(id);
         request.setAttribute("user", user);
         RequestDispatcher rd = request.getRequestDispatcher("setting.jsp");
         rd.include(request, response);

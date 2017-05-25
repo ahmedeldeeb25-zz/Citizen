@@ -7,13 +7,15 @@ package servlets;
 
 import entities.post;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 import model.Posts;
+import model.Suggests;
 import model.test;
 import org.hibernate.Session;
 
@@ -27,6 +29,21 @@ public class detail extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+
+//        if (session.getAttribute("from") != null) {
+//            if (String.valueOf(session.getAttribute("from")) == "0") {
+//                session.setAttribute("from", request.getParameter("post_id"));
+//                JOptionPane.showMessageDialog(null, "34");
+//            } else {
+//                session.setAttribute("to", request.getParameter("post_id"));
+//                JOptionPane.showMessageDialog(null, "102");
+//                int from=Integer.parseInt(String.valueOf(session.getAttribute("from")));
+//                int to=Integer.parseInt(String.valueOf(session.getAttribute("to")));
+//                Suggests s=new Suggests();
+//                s.updatesuggest(from, to);
+//            }
+//           
+//        }
 
         if (request.getParameter("delete") != null) {
 
@@ -51,6 +68,12 @@ public class detail extends HttpServlet {
             p = (post) s.get(post.class, post_id);
             request.setAttribute("p", p);
 
+            Suggests su = new Suggests();
+
+            int spost_id = Integer.parseInt(request.getParameter("post_id"));
+
+            request.setAttribute("suggestedPosts", su.sort(su.suggestpost(spost_id)));
+
             request.getRequestDispatcher("detail.jsp").include(request, response);
 ///////////////////////////
             int hitsCount = p.getVisit();
@@ -66,6 +89,7 @@ public class detail extends HttpServlet {
             s.close();
             /////////////////////
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

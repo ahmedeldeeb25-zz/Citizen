@@ -37,6 +37,19 @@ public class Posts {
         return user;
 
     }
+     public List<post> getAll() {
+        sessionfactory = new Configuration().configure().buildSessionFactory();
+        session = sessionfactory.openSession();
+        session.beginTransaction();
+
+         c = session.createCriteria(post.class);
+        List<post> cat = c.list();
+        
+        session.close();
+
+        return cat;
+
+    }
 
     public void deletePost(post p) {
         sessionfactory = new Configuration().configure().buildSessionFactory();

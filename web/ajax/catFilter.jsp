@@ -26,10 +26,15 @@
 %>
 
 <%
+    int sum=0;
     sub_category sub = (sub_category) s.get(sub_category.class, id);
     List<post> post_list = (List<post>) sub.getPosts();
-    if (post_list.size() > 0) {
-        for (post p : post_list.subList(0, 3)) {
+    if (post_list.size() > 0  ) {
+        if(post_list.size() >=3)
+            sum=3;
+        else
+            sum=post_list.size();
+        for (post p : post_list.subList(0, sum)) {
 
 %>
 

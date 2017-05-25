@@ -31,11 +31,10 @@ import org.hibernate.Session;
  */
 public class allListing extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out=response.getWriter();
+        PrintWriter out = response.getWriter();
 
         List<Integer> list_id = null;
         List<post> poste = null;
@@ -44,44 +43,44 @@ public class allListing extends HttpServlet {
         if (request.getParameter("keyword") != null) {
 
             user u = new user();
-           
+
             String[] keyword = u.Words(request.getParameter("keyword")).split(" ");
 
             HashMap<Integer, HashSet<String>> posts = u.postSearch();
             list_id = new ArrayList<Integer>();
-             HashMap<Integer, Integer> postscount = new HashMap<Integer, Integer>();
+            HashMap<Integer, Integer> postscount = new HashMap<Integer, Integer>();
 
-        for (Map.Entry<Integer, HashSet<String>> e : posts.entrySet()) {
-            int count = 0;
-            for (int i = 0; i < keyword.length; i++) {
-                if (e.getValue().contains(keyword[i])) {
-                    count++;
-                }
-            }
-
-            postscount.put(e.getKey(), count);
-
-        }
-
-        Object[] z = postscount.values().toArray();
-        java.util.Arrays.sort(z);
-
-//...........................................................................................
-        ArrayList<Integer> fin = new ArrayList<Integer>();
-        for (int i = z.length - 1; i >= 0; --i) {
-            for (Map.Entry<Integer, Integer> e : postscount.entrySet()) {
-
-                if (e.getValue().equals(z[i]) && !z[i].equals(0)) {
-                    if (!fin.contains(e.getKey())) {
-                        fin.add(e.getKey());
+            for (Map.Entry<Integer, HashSet<String>> e : posts.entrySet()) {
+                int count = 0;
+                for (int i = 0; i < keyword.length; i++) {
+                    if (e.getValue().contains(keyword[i])) {
+                        count++;
                     }
                 }
 
+                postscount.put(e.getKey(), count);
+
             }
 
-        }
-        list_id=fin;
-        //out.print(list_id);
+            Object[] z = postscount.values().toArray();
+            java.util.Arrays.sort(z);
+
+//...........................................................................................
+            ArrayList<Integer> fin = new ArrayList<Integer>();
+            for (int i = z.length - 1; i >= 0; --i) {
+                for (Map.Entry<Integer, Integer> e : postscount.entrySet()) {
+
+                    if (e.getValue().equals(z[i]) && !z[i].equals(0)) {
+                        if (!fin.contains(e.getKey())) {
+                            fin.add(e.getKey());
+                        }
+                    }
+
+                }
+
+            }
+            list_id = fin;
+            //out.print(list_id);
         }
         if (request.getParameter("cat") != null) {
             int cat = Integer.parseInt(request.getParameter("cat"));
@@ -91,12 +90,13 @@ public class allListing extends HttpServlet {
             if (c != null) {
                 poste = (List<post>) c.getPosts();
             }
-
+            s.close();
         } else {
             Session s = t.openConnection();
             s.beginTransaction();
             Criteria c = s.createCriteria(post.class);
             poste = (List<post>) c.list();
+            s.close();
         }
 
         //Send request

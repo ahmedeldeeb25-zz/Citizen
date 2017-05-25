@@ -1,3 +1,5 @@
+<%@page import="entities.profile"%>
+<%@page import="model.user"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="entities.post"%>
@@ -6,6 +8,11 @@
 
 
 <%@include file="include/header.jsp" %>
+
+<%
+    user u = new user();
+    profile pr = u.getUser(Integer.parseInt(String.valueOf(session.getAttribute("userID"))));
+%>
 <!-- PATH SECTION ================================================= -->
 <section class="path">
     <div class="container">
@@ -33,11 +40,15 @@
 
 
             <div class="col-sm-push-2 col-md-8 col-sm-6">
-                <h1 class="text-center">your profile</h1>
+                <h1 class="text-center"><%= pr.getFirst_name()+" "+pr.getLast_name() %></h1>
 
                 <div class="col-md-12">
                     <div class=" text-center profile-image">
-                        <img src="userImage.jsp?userID=3" class="img-responsive center-block" alt="my profile image">
+                        <%if (pr.getPicture() == null) { %>
+                        <img src="style/img/default.png" class="img-responsive center-block" alt="my profile image">    
+                        <%} else {%>
+                        <img src="userImage.jsp?userID=<%= session.getAttribute("userID")%>" class="img-responsive center-block" alt="my profile image">    
+                        <%}%>
                     </div> 
                 </div>
 
@@ -71,37 +82,37 @@
 
                                     <tbody>
 
-                                        <% for(post p: userPosts) { %>
-                                         <tr class="my-item">
-                                             <td>
-                                                 <div class="image-wrapper">
-                                                     <a class="image img-responsive" href="editlisting.html">
-                                                           <img class="media-object" src="imageView.jsp?postID=<%= p.getId() %>" >
-                                                     </a>
-                                                 </div>
+                                        <% for (post p : userPosts) {%>
+                                        <tr class="my-item">
+                                            <td>
+                                                <div class="image-wrapper">
+                                                    <a class="image img-responsive" href="editlisting.html">
+                                                        <img class="media-object" src="imageView.jsp?postID=<%= p.getId()%>" >
+                                                    </a>
+                                                </div>
 
-                                                 <div class="info">
-                                                     <a href="detail.html"><h3><%= p.getTitle() %></h3></a>
-                                                     <figure class="location"><%= p.getCity().getName() %></figure>											 
-                                                 </div>
-                                             </td>
-                                             <td class="viwes">426</td>
-                                             <td class="reviwes">43</td>
+                                                <div class="info">
+                                                    <a href="detail?post_id=<%= p.getId() %>"><h3><%= p.getTitle()%></h3></a>
+                                                    <figure class="location"><%= p.getCity().getName()%></figure>											 
+                                                </div>
+                                            </td>
+                                            <td class="viwes"><%= p.getVisit()%></td>
+                                            <td class="reviwes"><%= p.getComments().size()%></td>
 
-                                             <td class="last-edited">
-                                                 Today 15:30
+                                            <td class="last-edited">
+                                                Today 15:30
 
-                                                 <% if((session.getAttribute("userID") != null && request.getParameter("user_id") ==null) || request.getParameter("user_id") == session.getAttribute("userID")  ){ %>
-                                                 <div class="edit-options">
-                                                     <a href="AddPost?post_id=<%= p.getId() %>" class="link icon"><i class="fa fa-edit"></i>Edit</a>
-                                                     <c:url value="detail" var="base" />
-                                                     <a href="${base}?post_id=<%= p.getId() %>" class="link icon"><i class="fa fa-comment"></i>Reviews</a>
-                                                     <a href="${base}?delete=<%= p.getId() %>" class="delete link icon"><i class="fa fa-trash"></i>Delete</a>
+                                                <% if ((session.getAttribute("userID") != null && request.getParameter("user_id") == null) || request.getParameter("user_id") == session.getAttribute("userID")) {%>
+                                                <div class="edit-options">
+                                                    <a href="AddPost?post_id=<%= p.getId()%>" class="link icon"><i class="fa fa-edit"></i>Edit</a>
+                                                    <c:url value="detail" var="base" />
+                                                    <a href="${base}?post_id=<%= p.getId()%>" class="link icon"><i class="fa fa-comment"></i>Reviews</a>
+                                                    <a href="${base}?delete=<%= p.getId()%>" class="delete link icon"><i class="fa fa-trash"></i>Delete</a>
 
-                                                 </div>
-                                                     <% } %>
-                                             </td>
-                                         </tr>
+                                                </div>
+                                                <% } %>
+                                            </td>
+                                        </tr>
                                         <%}%>
 
                                     </tbody>

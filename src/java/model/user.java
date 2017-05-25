@@ -84,20 +84,20 @@ public class user {
 
     }
 
-    public void updateProfile(profile u) {
-
-        sessionfactory = new Configuration().configure().buildSessionFactory();
-        session = sessionfactory.openSession();
-        session.beginTransaction();
-        session.update(u);
-        session.getTransaction().commit();
-        session.close();
-
-    }
+//    public void updateProfile(profile u) {
+//
+//        sessionfactory = new Configuration().configure().buildSessionFactory();
+//        session = sessionfactory.openSession();
+//        session.beginTransaction();
+//        session.update(u);
+//        session.getTransaction().commit();
+//        session.close();
+//
+//    }
 
     /////////////////Post search/////////////////
     ////////////////////////////////////////////
-    public  String Words(String line) throws FileNotFoundException, IOException {
+    public String Words(String line) throws FileNotFoundException, IOException {
 
         BufferedReader stopWordsFile = new BufferedReader(new FileReader("C://Users//Ahmed_Eldeeb//Documents//NetBeansProjects//Citizen//src//stopWords.txt"));
 
@@ -203,4 +203,49 @@ public class user {
     }
     /////////////////End of Post search/////////////////
     ////////////////////////////////////////////  
+
+    public Boolean updateProfile(profile u) {
+// System.out.println("u ======     "+u.getAbout()+"  "+u.getFirst_name());
+        try {
+
+            SessionFactory sessionfactory = new Configuration().configure().buildSessionFactory();
+            Session session = sessionfactory.openSession();
+            session.beginTransaction();
+
+            profile x = (profile) session.get(profile.class, 1);
+            //  System.out.println(x.toString()+"\n ........................................");
+//       session.delete(x);
+
+            x.setFirst_name(u.getFirst_name());
+            x.setLast_name(u.getLast_name());
+            x.setEmail(u.getEmail());
+            x.setPhone(u.getPhone());
+            x.setAbout(u.getAbout());
+            x.setSocial(u.getSocial());
+            /**/
+//       File file = new File(request.getParameter("img"));
+//       byte[] bytefile= new byte[(int)file.length()];
+//       try{
+//           FileInputStream fs = new FileInputStream(file);
+//           fs.read(bytefile);
+//           fs.close();
+//           
+//           
+//       }catch(Exception ex){
+//           JOptionPane.showMessageDialog(null, ex);
+//       }
+//       /**/
+            x.setPicture(u.getPicture());
+            x.setSocial(u.getSocial());
+//            System.out.println("x .............>  "+x.toString());
+            session.update(x);
+            session.getTransaction().commit();
+            session.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
